@@ -5,6 +5,16 @@ const NavLinks = {
   employer: [
     {
       name: "Home",
+      link: "/employee-dashboard",
+    },
+    {
+      name: "Project",
+      link: "/employee-Project",
+    },
+  ],
+  employee: [
+    {
+      name: "Home",
       link: "/employer-dashboard",
     },
     {
@@ -16,22 +26,11 @@ const NavLinks = {
       link: "/employer-project",
     },
   ],
-  employee: [
-    {
-      name: "Home",
-      link: "/employee-dashboard",
-    },
-    {
-      name: "Project",
-      link: "/employee-project",
-    },
-  ],
 };
 
-let userRole = "employer";
+let userRole = "employee";
 
-const navLinks =
-  userRole === "employer" ? NavLinks.employer : NavLinks.employee;
+const navLinks = userRole == "employee" ? NavLinks.employer : NavLinks.employee;
 const Navbar = () => {
   return (
     <div className="flex items-center justify-between p-4 bg-white">
@@ -41,16 +40,16 @@ const Navbar = () => {
       <div>
         {navLinks.map((link) => (
           <Link
-            href={link.link}
+            href={"/Project"}
             key={link.name}
-            className=" bg-color_hover rounded-full px-2 py-2 m-2  font-sm  text-text_tertiary hover:text_secondary"
+            className=" bg-color_hover rounded-full px-2 py-2 m-2 font-sm  text-text_tertiary hover:text_secondary"
           >
             {link.name}
           </Link>
         ))}
       </div>
       <div>
-        {userRole === "employer" && (
+        {userRole === "employee" && (
           <div className="border-2  border-gray-200 ">
             <button className="bg-text_secondary p-2 m-2   text-white rounded-full">
               FO

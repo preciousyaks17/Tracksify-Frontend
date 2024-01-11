@@ -32,7 +32,7 @@ export default function Home() {
       <div className="w-1/2 hidden md:flex justify-center items-center">
         <button
           onClick={() => router.push("/login")}
-          className="border text-text_secondary px-16 py-4  hover:text-white  hover:bg-blue-400   outline rounded "
+          className="bg-text_secondary text-white hover:text-text_tertiary hover:bg-color_hover rounded px-16 py-4  "
         >
           {" "}
           Get Started{" "}
