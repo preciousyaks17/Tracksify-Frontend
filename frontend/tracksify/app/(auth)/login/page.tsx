@@ -1,11 +1,35 @@
 "use client";
 import Logo from "@/components/logo";
-import Home from "@/app/page";
-import Link from "next/link";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+import * as z from "zod";
+
+const loginFornSchema = z.object({
+  email: z.string().min(1, { message: "Email is required" }).email({
+    message: "Email must be valid",
+  }),
+  password: z.string().min(3, { message: "Password is required!" }),
+});
+
+type ValidationSchema = z.infer<typeof loginFornSchema>;
 
 const LoginPage = () => {
   const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ValidationSchema>({
+    resolver: zodResolver(loginFornSchema),
+  });
+
+  const onSubmit: SubmitHandler<ValidationSchema> = (data) => {
+    console.log(data);
+    router.push("/employee-dashboard");
+  };
 
   // const handleLogin = () => {
   //   router.push("/dashboard");
@@ -23,7 +47,7 @@ const LoginPage = () => {
               <h1 className="text-text_tertiary font-bold text-5xl font-work-sans mb-3 leading-tight">
                 Elevate your
                 <br /> Productivity with
-                <br />{" "}
+                <br />
                 <span className=" font-bold text-text_secondary">
                   Tracksify
                 </span>
@@ -35,18 +59,31 @@ const LoginPage = () => {
         <div className=" w-1/2 flex flex-col px-20 py-40">
           <div>
             <h1 className="font-bold text-2xl">Get Started</h1>
-            <form className="font-product-sans font-sm ">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              noValidate
+              className="font-product-sans font-sm "
+            >
               <div className=" mb-4 ">
                 <label
                   className="block  text-sm font-bold mb-2"
                   htmlFor="email address"
                 ></label>
                 <input
-                  className="  border rounded py-4 px-5 w-full  leading-tight outline-none "
+                  className={` border rounded py-4 px-5 w-full  leading-tight outline-none
+                  ${errors.email && "border-red-500"}
+                  `}
                   id="email"
+                  // name="email"
                   type="text"
                   placeholder="Email Address"
+                  {...register("email")}
                 />
+                {errors.email && (
+                  <p className="text-xs italic text-red-500 mt-2">
+                    {errors.email?.message}
+                  </p>
+                )}
               </div>
               <div className=" mb-4 ">
                 <label
@@ -54,13 +91,19 @@ const LoginPage = () => {
                   htmlFor="password"
                 ></label>
                 <input
-                  className="  border rounded py-4 px-5 w-full  leading-tight outline-none "
-                  id="password"
+                  className={`border rounded py-4 px-5 w-full  leading-tight outline-none "
+                  id="password ${errors.password && "border-red-500"}`}
+                  // name="password"
                   type="password"
                   placeholder="Password"
+                  {...register("password")}
                 />
+                {errors.password && (
+                  <p className="text-xs italic text-red-500 mt-2">
+                    {errors.password?.message}
+                  </p>
+                )}
               </div>
-
               <div className="text-right">
                 <p
                   className="text-text_secondary font-md font-product-sans cursor-pointer"
@@ -71,11 +114,8 @@ const LoginPage = () => {
               </div>
               <div className="">
                 <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    router.push("/employer-dashboard");
-                  }}
-                  className="border   hover:bg-color_hover w-full   font-bold text-text_tertiary py-4 px-5 rounded mt-5 "
+                  type="submit"
+                  className="bg-text_secondary text-white hover:text-text_tertiary hover:bg-color_hover w-full font-bold text-text_tertiary py-4 px-5 rounded mt-5"
                 >
                   Log In
                 </button>
