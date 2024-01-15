@@ -12,7 +12,7 @@ const ProjectDetails = () => {
       <div className=" bg-background_foreground h-screen ">
         <div className="">
           <h1 className="text-2xl text-text_tertiary pb-10  pr-22 pt-8 pl-48 font-bold">
-            Good Morning Mathilda,
+            Good Morning ,
           </h1>
         </div>
         <div className="bg-white m-4  w-3/4 mx-auto">

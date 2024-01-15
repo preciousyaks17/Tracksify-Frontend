@@ -11,7 +11,7 @@ const page = () => {
         <div className="bg-color_hover h-screen ">
           <div className="p-4 pl-20">
             <h1 className="text-2xl text-text_tertiary pt-8 pl-40 font-bold">
-              Good Morning Mathilda,
+              Good Morning ,
             </h1>
             <div className="flex justify-end pr-44 pb-4 ">
               <button className="bg-text_secondary text-white hover:text-text_tertiary hover:bg-color_hover rounded px-4 py-2 mt-4">
