@@ -13,7 +13,7 @@ const NavLinks = {
     },
     {
       name: "Project",
-      link: "/employer-project",
+      link: "/employer-dashboard/employer-project",
     },
   ],
   employee: [
