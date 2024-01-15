@@ -12,15 +12,15 @@ const WorkHours = () => {
               type="date"
               name="date"
               placeholder="Date"
-              className="p-4 m-2   outline-none "
+              className="p-4 m-2  text-gray-200  outline-none "
             />
           </div>
           <div className="border mb-6 rounded-xl border-gray-200 ">
-            <label className="pl-2">Start Time</label>
+            <label className="pl-2 text-gray-200">Start Time</label>
             <input type="time" name="start-time " className="p-4 m-2  " />
           </div>
           <div className="border mb-6 rounded-xl border-gray-200">
-            <label className="pl-2">End Time</label>
+            <label className="pl-2 text-gray-200">End Time</label>
             <input type="time" name="end-time" className="p-4 m-2" />
           </div>
           <div>
@@ -35,7 +35,7 @@ const WorkHours = () => {
             </div>
           </div>
 
-          <button className="bg-text_secondary p-4 m-2 rounded-xl text-white hover:text_tertiary hover:bg-text_primary">
+          <button className="bg-text_secondary p-4 m-2 rounded-xl text-white hover:text_tertiary hover:bg-color_hover">
             Submit
           </button>
         </form>
