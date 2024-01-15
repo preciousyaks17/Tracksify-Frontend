@@ -5,14 +5,22 @@
 
 @layer base {
   :root {
-    --background:#ffffff ;
-    --foreground:#F0F3F7;
-    --background-btn:#E5E9F2;
-    --color-btn: #A1CCFF;
-    --text-color:#0084FE;
-    --main-text-color:#535F75;
-    --text-tertiary: #1D1E2C;
-    --color-hover: #E5E9F2;
-    --color-text:#575A65;
+    --background: #ffffff;
+    --foreground: #f0f3f7;
+    --background-btn: #e5e9f2;
+    --color-btn: #a1ccff;
+    --text-color: #0084fe;
+    --main-text-color: #535f75;
+    --text-tertiary: #1d1e2c;
+    --color-hover: #e5e9f2;
+    --color-text: #575a65;
+    --navbar-color: #eaf2f9;
+    --navbar-gradient: linear-gradient(
+      276.83deg,
+      #b5dafc 26.44%,
+      rgba(213, 226, 238, 0.581804) 47.86%,
+      rgba(213, 226, 238, 0.358323) 73.28%,
+      rgba(213, 226, 238, 0.67) 99.44%
+    );
   }
 }

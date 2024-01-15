@@ -1,4 +1,3 @@
-
 **TRACKSIFY**
 
 Tracksify is an innovative web application designed to streamline the process of tracking work hours for employees assigned to projects by employers.
