@@ -28,7 +28,7 @@ const LoginPage = () => {
 
   const onSubmit: SubmitHandler<ValidationSchema> = (data) => {
     console.log(data);
-    router.push("/employee-dashboard");
+    router.push("/employer-dashboard");
   };
 
   // const handleLogin = () => {

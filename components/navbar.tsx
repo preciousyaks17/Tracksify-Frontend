@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Logo from "./logo";
+import React from "react";
 
 const NavLinks = {
   employer: [
@@ -28,8 +29,7 @@ const NavLinks = {
   ],
 };
 
-let userRole = "employer";
-
+let userRole = "employee";
 const navLinks =
   userRole === "employer" ? NavLinks.employer : NavLinks.employee;
 const Navbar = () => {
@@ -43,24 +43,23 @@ const Navbar = () => {
           <Link
             href={link.link}
             key={link.name}
-            className=" bg-color_hover rounded-full px-2 py-2 m-2  font-sm  text-text_tertiary hover:text_secondary"
+            className=" hover:bg-navbar_color    rounded-full px-3 py-3 m-2 hover:text-text_secondary  font-semi-bold  text-text_tertiary hover:text_secondary"
           >
             {link.name}
           </Link>
         ))}
       </div>
       <div>
-        {userRole === "employer" && (
-          <div className="border-2  border-gray-200 ">
-            <button className="bg-text_secondary p-2 m-2   text-white rounded-full">
-              FO
-            </button>
-            <select className="ml-2 w-4 outline-none">
-              <option value="option1"></option>
-              <option value="option2">Log out </option>
-            </select>
-          </div>
-        )}
+        <div className="border-2  border-gray-200 ">
+          <button className="bg-text_secondary p-2 m-2   text-white rounded-full">
+            FO
+          </button>
+          <select className="ml-2 w-4 outline-none ">
+            <option value="option1" className=" ">
+              Log out{" "}
+            </option>
+          </select>
+        </div>
       </div>
     </div>
   );
