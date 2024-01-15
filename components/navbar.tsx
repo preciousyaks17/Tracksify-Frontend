@@ -29,7 +29,7 @@ const NavLinks = {
   ],
 };
 
-let userRole = "employee";
+let userRole = "employer";
 const navLinks =
   userRole === "employer" ? NavLinks.employer : NavLinks.employee;
 const Navbar = () => {

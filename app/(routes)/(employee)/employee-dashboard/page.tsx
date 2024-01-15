@@ -11,7 +11,7 @@ const page = () => {
         <div className="bg-color_hover h-screen ">
           <div className="p-10 pl-20">
             <h1 className="text-2xl text-text_tertiary pt-8 pl-40 font-bold">
-              Good Morning Mathilda,
+              Good Morning ,
             </h1>
 
             <div className="bg-white h-half w-3/4 mx-auto  ">
