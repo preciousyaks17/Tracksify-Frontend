@@ -32,7 +32,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${product_sans.variable}`}>
-      <body className={work_sans.className}>{children}</body>
+      <body className={work_sans.className}>
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }
