@@ -46,14 +46,9 @@ const page = () => {
                     <option value="In Progress" className="text-yellow-500">
                       In Progress
                     </option>
-                    <option value="Pending" className="text-red-500">
-                      Pending
-                    </option>
-                    <option
-                      value="Completed  "
-                      className="text-green-500 border-none"
-                    >
-                      Completed
+
+                    <option value="2" className="text-green-500 border-none">
+                      Submitted
                     </option>
                   </select>
                 }

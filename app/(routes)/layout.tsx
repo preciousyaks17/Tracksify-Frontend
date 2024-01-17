@@ -1,12 +1,17 @@
+"use client";
+
 import Navbar from "@/components/navbar";
+import QueryProvider from "@/utils/provider";
 import React from "react";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main>
-      <Navbar />
-      {children}
-    </main>
+    <QueryProvider>
+      <main>
+        <Navbar />
+        {children}
+      </main>
+    </QueryProvider>
   );
 };
 
