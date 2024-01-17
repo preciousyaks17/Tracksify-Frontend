@@ -1,96 +1,130 @@
 import React from "react";
 
-const projectUpdate = () => {
+const ProjectData = [
+  {
+    assignee: "hhhhhhh",
+    date: "3333333",
+    workStartTime: "3333333",
+    workEndTime: "4444444",
+    workDoneMessage: "loooeeiejhdfjfjfjgjfj",
+    role: "employee",
+  },
+  {
+    assignee: "hhhhhhh",
+    date: "3333333",
+    workStartTime: "3333333",
+    workEndTime: "4444444",
+    workDoneMessage: "loooeeiejhdfjfjfjgjfj",
+    role: "employer",
+  },
+  {
+    assignee: "hhhhhhh",
+    date: "3333333",
+    workStartTime: "3333333",
+    workEndTime: "4444444",
+    workDoneMessage: "loooeeiejhdfjfjfjgjfj",
+    role: "employer",
+  },
+  {
+    assignee: "hhhhhhh",
+    date: "3333333",
+    workStartTime: "3333333",
+    workEndTime: "4444444",
+    workDoneMessage: "loooeeiejhdfjfjfjgjfj",
+    role: "employee",
+  },
+  {
+    assignee: "hhhhhhh",
+    date: "3333333",
+    workStartTime: "3333333",
+    workEndTime: "4444444",
+    workDoneMessage: "loooeeiejhdfjfjfjgjfj",
+    role: "employer",
+  },
+  {
+    assignee: "hhhhhhh",
+    date: "3333333",
+    workStartTime: "3333333",
+    workEndTime: "4444444",
+    workDoneMessage: "loooeeiejhdfjfjfjgjfj",
+    role: "employer",
+  },
+  {
+    assignee: "hhhhhhh",
+    date: "3333333",
+    workStartTime: "3333333",
+    workEndTime: "4444444",
+    workDoneMessage: "loooeeiejhdfjfjfjgjfj",
+    role: "employer",
+  },
+];
+
+interface ProjectDataProps {
+  assignee: string;
+  date: string;
+  workStartTime: string;
+  workEndTime: string;
+  workDoneMessage: string;
+  role?: string;
+}
+
+const ProjectUpdate = () => {
   return (
-    <div>
-      <div className="mb-5 pl-16">Project 1</div>
-      <div className="border rounded flex space-x-10 px-20 justify-between w-full p-2 o overflow-hidden">
-        <div className=" flex flex-col w-full">
-          <div>
-            <div className="flex flex-col  ">
-              <div className=" mb-6 ">
-                <div className="text-xs">Assignee</div>
-                <div>Bukola Adedayo</div>
-              </div>
-
-              <div className=" mb-6 ">
-                <div className="text-xs">Date</div>
-                <div>DD/MM/YYYY</div>
-              </div>
-
-              <div className=" mb-6 ">
-                <div className="text-xs">Start Time</div>
-                <div>-- : --</div>
-              </div>
-
-              <div className=" mb-6 ">
-                <div className="text-xs">End Time</div>
-                <div>-- : --</div>
-              </div>
-
-              <div>
-                <h1 className="font-bold pt-5 pb-5">Work Done</h1>
-                <div className="border mb-6 p-4 rounded-xl border-gray-200">
-                  <label>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Sed enim ut sem viverra aliquet eget sit amet
-                    tellus. Eget est lorem ipsum dolor sit amet consectetur
-                    adipiscing. Vel pretium lectus quam id leo in vitae turpis
-                    massa. Porttitor leo a diam sollicitudin tempor id.
-                    Scelerisque eleifend donec pretium vulputate. Pellentesque
-                    sit amet porttitor eget dolor morbi.{" "}
-                  </label>
-                </div>
-              </div>
-            </div>
+    <div className="px-8 py-2 space-y-6">
+      <h1 className=" font-bold">Project 1</h1>
+      <div className="grid grid-cols-2 gap-10">
+        {ProjectData.map((project: ProjectDataProps) => (
+          <div key={project.assignee}>
+            <ProjectMessage
+              assignee={project.assignee}
+              date={project.date}
+              workDoneMessage={project.workDoneMessage}
+              workEndTime={project.workEndTime}
+              workStartTime={project.workStartTime}
+            />
           </div>
-        </div>
-
-        <div className=" flex flex-col w-full">
-          <div>
-            <div className="flex flex-col  ">
-              <div className=" mb-6 ">
-                <div className="text-xs">Assignee</div>
-                <div>Bukola Adedayo</div>
-              </div>
-
-              <div className=" mb-6 ">
-                <div className="text-xs">Date</div>
-                <div>DD/MM/YYYY</div>
-              </div>
-
-              <div className=" mb-6 ">
-                <div className="text-xs">Start Time</div>
-                <div>-- : --</div>
-              </div>
-
-              <div className=" mb-6 ">
-                <div className="text-xs">End Time</div>
-                <div>-- : --</div>
-              </div>
-
-              <div>
-                <h1 className="font-bold pt-5 pb-5">Work Done</h1>
-                <div className="border mb-6 p-4 rounded-xl border-gray-200">
-                  <label>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Sed enim ut sem viverra aliquet eget sit amet
-                    tellus. Eget est lorem ipsum dolor sit amet consectetur
-                    adipiscing. Vel pretium lectus quam id leo in vitae turpis
-                    massa. Porttitor leo a diam sollicitudin tempor id.
-                    Scelerisque eleifend donec pretium vulputate. Pellentesque
-                    sit amet porttitor eget dolor morbi.{" "}
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );
 };
 
-export default projectUpdate;
+export const ProjectMessage = ({
+  assignee,
+  date,
+  workStartTime,
+  workEndTime,
+  workDoneMessage,
+  role,
+}: ProjectDataProps) => {
+  return (
+    <div className=" border border-black py-3 px-5 space-y-3">
+      <div
+        className={`border border-gray-200 px-4 py-2 space-y-2 ${
+          role === "employer" && "hidden"
+        }`}
+      >
+        <p className=" text-sm font-semibold">Assignee</p>
+        <h1 className="">{assignee}</h1>
+      </div>
+      <div className="border border-gray-200 px-4 py-2 space-y-2">
+        <p className=" text-sm font-semibold">Date</p>
+        <h1 className="">{date}</h1>
+      </div>
+      <div className="border border-gray-200 px-4 py-2 space-y-2">
+        <p className=" text-sm font-semibold">Work Start Time</p>
+        <h1>{workStartTime}</h1>
+      </div>
+      <div className="border border-gray-200 px-4 py-2 space-y-2">
+        <p className=" text-sm font-semibold">Work End Time</p>
+        <h1>{workEndTime}</h1>
+      </div>
+      <div className="border border-gray-200 px-4 py-2 space-y-2">
+        <h1 className="font-semibold text-lg">Work Done</h1>
+        <p className="">{workDoneMessage}</p>
+      </div>
+    </div>
+  );
+};
+
+export default ProjectUpdate;

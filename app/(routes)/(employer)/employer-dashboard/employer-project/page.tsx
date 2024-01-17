@@ -5,12 +5,21 @@ import Modal from "@/components/modal";
 import { useRouter } from "next/navigation";
 import { Fragment, useState } from "react";
 import { DatePicker } from "@/components/datepicker";
+import MultiSelectDropdown from "@/components/drop-down-menu";
 
 import React from "react";
 import router from "next/router";
 
 const EmployerProjectDetails = () => {
   const [showModal, setShowModal] = useState(false);
+  const EMPLOYEE = [
+    "Bukola Adedayo",
+    "Precious Yakubu",
+    "Emmanuel Adebanjo",
+    "Malthida Duku",
+    "Victor Akan",
+    "Similoluwa Benjamin",
+  ];
 
   return (
     <div className="">
@@ -18,7 +27,7 @@ const EmployerProjectDetails = () => {
         <div className="bg-color_hover h-screen ">
           <div className="p-4 pl-20">
             <Fragment>
-              <div className="flex justify-end pr-44 pb-4 bg-black">
+              <div className="flex justify-end pr-44 pb-4">
                 <button
                   className="bg-text_secondary text-white hover:text-text_tertiary hover:bg-color_hover rounded px-4 py-2 mt-4"
                   onClick={() => setShowModal(true)}
@@ -37,11 +46,12 @@ const EmployerProjectDetails = () => {
                   className="border p-2 mb-6  my-8  rounded-md focus:outline-none focus:border-blue-500 w-full"
                   placeholder="Project Name"
                 />
-                <input
+
+                {/* <input
                   type="text"
                   className="border p-2 mb-6  my-2  rounded-md focus:outline-none focus:border-blue-500 w-full"
                   placeholder="Email Address, Separated by comma"
-                />
+  /> */}
                 <div className="flex space-x-5">
                   {" "}
                   <div className="w-full">
@@ -87,6 +97,20 @@ const EmployerProjectDetails = () => {
                     />
                   </div>{" "}
                 </div>
+                <div className="">
+                  <MultiSelectDropdown
+                    formFieldName={"employee"}
+                    options={EMPLOYEE}
+                    onChange={(selectedEmployerProjectDetails) => {
+                      console.debug(
+                        "selectedEmployee",
+                        selectedEmployerProjectDetails
+                      );
+                    }}
+                    prompt="Select Employee "
+                  />
+                </div>
+
                 <div className="mb-6 mt-6">
                   <label
                     htmlFor="message"
@@ -132,7 +156,7 @@ const EmployerProjectDetails = () => {
                 </h3>
 
                 {/* GRID 1 */}
-                <Link href="/employer-project/12345/list-of-projects">
+                <Link href="employer-project/1/list-of-projects">
                   <p className=" hover:bg-color_hover p-5 cursor-pointer">
                     Project 1
                   </p>

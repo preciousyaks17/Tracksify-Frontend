@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import Modal from "@/components/modal";
 import React, { useState, Fragment } from "react";
 import { handleClientScriptLoad } from "next/script";
+import Dropdown from "@/components/drop-down-menu";
+import MultiSelectDropdown from "@/components/drop-down-menu";
 
 const Employee = () => {
   const [showModal, setShowModal] = React.useState(false);
@@ -58,7 +60,7 @@ const Employee = () => {
                             placeholder="First Name"
                           />
                         </div>
-                        <div className="">
+                        <div className="w-full">
                           <input
                             className="border outline-none rounded-md w-full p-2 m-2"
                             type="text"
@@ -66,13 +68,15 @@ const Employee = () => {
                           />
                         </div>
                       </div>
+
                       <div>
                         <input
                           className="border outline-none rounded-md w-full p-2 m-2"
                           type="text"
-                          placeholder="Email"
+                          placeholder="Email Address"
                         />
                       </div>
+
                       <div>
                         <input
                           className="border outline-none rounded-md w-full p-2 m-2"
