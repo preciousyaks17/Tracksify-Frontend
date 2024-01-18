@@ -1,9 +1,11 @@
 "use client";
 import Logo from "@/components/logo";
+import useProject from "@/hooks/useProjects";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
+import { toast } from "sonner";
 import * as z from "zod";
 
 const loginFornSchema = z.object({
@@ -17,6 +19,8 @@ type ValidationSchema = z.infer<typeof loginFornSchema>;
 
 const LoginPage = () => {
   const router = useRouter();
+  // const { getProjectQuery } = useProject();
+  // console.log(getProjectQuery.data);
 
   const {
     register,

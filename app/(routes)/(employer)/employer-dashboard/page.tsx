@@ -52,6 +52,10 @@ const Page = () => {
     }
   };
 
+<<<<<<< Updated upstream
+=======
+const EmployerDashboardPage = () => {
+>>>>>>> Stashed changes
   return (
     <div className="">
       <main className="">
@@ -296,4 +300,8 @@ const Page = () => {
   );
 };
 
+<<<<<<< Updated upstream
 export default Page;
+=======
+export default EmployerDashboardPage;
+>>>>>>> Stashed changes
