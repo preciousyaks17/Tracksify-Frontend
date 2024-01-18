@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { ChevronLeft } from "lucide-react";
 
+import { toast } from "sonner";
+
 const ResetPasswordPage = () => {
   return (
     <main className="md:flex   ">
@@ -43,7 +45,7 @@ const ResetPasswordPage = () => {
             we will send you a link to reset your password.
           </p>
           <div>
-            <form className="font-product-sans font-sm ">
+            <form className="font-product-sans font-sm">
               <div className=" mb-4 mt-8">
                 <label
                   className="block  text-sm font-bold mb-2"

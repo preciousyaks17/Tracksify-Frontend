@@ -7,7 +7,7 @@ import { DatePicker } from "@/components/datepicker";
 import MultiSelectDropdown from "@/components/drop-down-menu";
 import Modal from "@/components/modal";
 
-const Page = () => {
+const EmployerDashboardPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [projectName, setProjectName] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -52,10 +52,7 @@ const Page = () => {
     }
   };
 
-<<<<<<< Updated upstream
-=======
-const EmployerDashboardPage = () => {
->>>>>>> Stashed changes
+  //const EmployerDashboardPage = () => {
   return (
     <div className="">
       <main className="">
@@ -300,8 +297,4 @@ const EmployerDashboardPage = () => {
   );
 };
 
-<<<<<<< Updated upstream
-export default Page;
-=======
 export default EmployerDashboardPage;
->>>>>>> Stashed changes

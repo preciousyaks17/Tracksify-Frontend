@@ -33,6 +33,7 @@ const LoginPage = () => {
   const onSubmit: SubmitHandler<ValidationSchema> = (data) => {
     console.log(data);
     router.push("/employer-dashboard");
+    toast.success("Login Successfully");
   };
 
   // const handleLogin = () => {
