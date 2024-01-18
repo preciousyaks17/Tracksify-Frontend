@@ -4,7 +4,9 @@ import Logo from "@/components/logo";
 
 import React, { useState } from "react";
 
-const page = () => {
+const Page = () => {
+  const [firstName, setFirstName] = useState('John'); // Replace 'John' with the actual first name after login
+
   return (
     <div className="">
       <main className="">
@@ -136,4 +138,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
