@@ -199,7 +199,7 @@ const Page = () => {
 
                 {/* GRID 1 */}
                 <Link
-                  href="/employer-dashboard/project-details/1"
+                  href={`/employer-dashboard/employer-project/1/project-update`}
                   className=" hover:bg-color_hover p-5 cursor-pointer"
                 >
                   Project 1
