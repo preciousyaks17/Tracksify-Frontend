@@ -55,8 +55,12 @@ const[error, setError]= useState("");
       localStorage.setItem('user', userDetails.user);
 
       if (userDetails.user.userType === 0) {
+        toast.success("Login Successfully");
+
         router.push("/employer-dashboard");
       } else if (userDetails.user.userType === 1) {
+        toast.success("Login Successfully");
+
         router.push("/employee-dashboard");
       } else {
        setError('Invalid User'); 
