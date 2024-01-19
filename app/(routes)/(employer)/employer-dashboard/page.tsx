@@ -3,7 +3,7 @@ import Logo from "@/components/logo";
 import Link from "next/link";
 import Modal from "@/components/modal";
 import { useRouter } from "next/navigation";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { DatePicker } from "@/components/datepicker";
 import MultiSelectDropdown from "@/components/drop-down-menu";
 
@@ -12,10 +12,13 @@ import router from "next/router";
 import axios from "axios";
 
 export interface ProjectDetailsDataDTo {
-  name: string;
+  projectId: string;
+  projectName: string;
+  projectDescription: string;
   startDate: string;
   dueDate: string;
-  status: Status;
+  status: string;
+  projectAssignees: string[];
 }
 
 interface Status {
@@ -26,24 +29,13 @@ interface Status {
 
 const ProjectDetailsData = [
   {
-    name: "My name",
+    projectId: "",
+    projectName: "My name",
+    projectDescription: "My name",
     startDate: "23-05-2024",
     dueDate: "23-05-2024",
-    status: {
-      progress: "In progress",
-      done: "Complete",
-      pending: "Pending",
-    },
-  },
-  {
-    name: "My name",
-    startDate: "23-05-2024",
-    dueDate: "23-05-2024",
-    status: {
-      progress: "In progress",
-      done: "Complete",
-      pending: "Pending",
-    },
+    status: "",
+    projectAssignees: [],
   },
 ];
 
@@ -52,17 +44,48 @@ const Page = () => {
   const [projectName, setProjectName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [dueDate, setDueDate] = useState("");
-  const [projectAssignees, setProjectAssignees] = useState([""]);
+  const [projectAssignees, setProjectAssignees] = useState<string[]>([]);
   const [projectDescription, setProjectDescription] = useState("");
+  const [allUsers, setAllUsers] = useState([]);
+  const [allProjects, setAllProjects] = useState<ProjectDetailsDataDTo[]>([]);
 
-  const EMPLOYEE = [
-    "Bukola Adedayo",
-    "Precious Yakubu",
-    "Emmanuel Adebanjo",
-    "Malthida Duku",
-    "Victor Akan",
-    "Similoluwa Benjamin",
-  ];
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0cmFja3NpZnkwMEBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjJlYTMxYzdlLWM4MTgtNDVkOS1iMzM1LTA4YjNkM2MxYWU4YyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkVtcGxveWVyIiwiZXhwIjoxNzA1NjcwOTM3LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUyNjMiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjUyNjMifQ.5wxQv8EMqnDJAKcWkLMv_R9JxF_jpCBGN3dZx01ziKk";
+  useEffect(() => {
+    // Function to make the API call
+    const fetchData = async () => {
+      try {
+        // Make your API call here
+        const response = await axios.get(
+          "https://tracksify.azurewebsites.net/tracksify/user",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json", // Adjust the content type as needed
+            },
+          }
+        );
+
+        const getAllProjects = await axios.get(
+          "https://tracksify.azurewebsites.net/tracksify/project",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json", // Adjust the content type as needed
+            },
+          }
+        );
+
+        setAllProjects(getAllProjects.data);
+        setAllUsers(response.data);
+      } catch (error) {
+        console.error("Error while fetching data:", error);
+      }
+    };
+
+    // Call the fetchData function when the component is mounted
+    fetchData();
+  }, []); // The empty dependency array ensures that this effect runs only once on mount
 
   // Function to handle project creation
   const createProject = async () => {
@@ -177,13 +200,33 @@ const Page = () => {
                 <div className="">
                   <MultiSelectDropdown
                     formFieldName={"employee"}
-                    options={EMPLOYEE}
+                    options={allUsers.map(
+                      (x) => x.firstName + " " + x.lastName
+                    )}
                     onChange={(selectedEmployerProjectDetails) => {
                       console.debug(
                         "selectedEmployee",
                         selectedEmployerProjectDetails
                       );
-                      setProjectAssignees(selectedEmployerProjectDetails);
+                      const selected = selectedEmployerProjectDetails.map((x) =>
+                        x.split(" ")
+                      );
+                      console.log("Selected  USER", selected);
+                      const currentUserDetails = selected.map((x) =>
+                        allUsers.filter(
+                          (y) => x[0] == y.firstName && y.lastName == x[1]
+                        )
+                      );
+                      console.log("Current  USER", currentUserDetails);
+                      const allSelectedUserId = currentUserDetails.map((x) =>
+                        x.map((y) => y.userId)
+                      );
+
+                      console.log("All User  USER", allSelectedUserId);
+                      setProjectAssignees([
+                        ...projectAssignees,
+                        ...allSelectedUserId[0],
+                      ]);
                     }}
                     prompt="Select Employee "
                   />
@@ -219,92 +262,87 @@ const Page = () => {
               </Modal>
             </Fragment>
             <div className="bg-white h-half w-3/4 mx-auto">
-              <h1 className="text-text_tertiary font-bold text-lg pt-4 pl-6 mt-4">
-                Due Project
-              </h1>
               <div className="grid grid-cols-4 gap-2 p-2">
                 <div className="col-span-1">
                   <h3 className="text-text_tertiary font-bold text-sm p-5">
                     Project Name
                   </h3>
-                  {ProjectDetailsData.map(
-                    (projectDetail: ProjectDetailsDataDTo) => (
-                      <Link
-                        key={projectDetail.name}
-                        href={`/employer-dashboard/employer-project/1/project-update`}
-                      >
-                        <p className="hover:bg-color_hover p-5 cursor-pointer">
-                          {projectDetail.name}
-                        </p>
-                      </Link>
-                    )
-                  )}
+                </div>
+                <div className="col-span-1">
+                  <h1 className="text-text_tertiary font-bold text-lg pt-4 pl-6 mt-4">
+                    Due Project
+                  </h1>
                 </div>
                 <div className="col-span-1">
                   <h3 className="text-text_tertiary font-bold text-sm p-5">
                     Start Date
                   </h3>
-                  {ProjectDetailsData.map(
-                    (projectDetail: ProjectDetailsDataDTo) => (
-                      <p
-                        key={projectDetail.name}
-                        className="hover:bg-color_hover p-5"
-                      >
-                        {projectDetail.startDate}
-                      </p>
-                    )
-                  )}
                 </div>
                 <div className="col-span-1">
                   <h3 className="text-text_tertiary font-bold text-sm p-5">
                     Due Date
                   </h3>
-                  {ProjectDetailsData.map(
-                    (projectDetail: ProjectDetailsDataDTo) => (
-                      <p
-                        key={projectDetail.name}
-                        className="hover:bg-color_hover p-5"
-                      >
-                        {projectDetail.dueDate}
-                      </p>
-                    )
-                  )}
                 </div>
                 <div className="col-span-1">
                   <h3 className="text-text_tertiary font-bold text-sm p-5">
                     Status
                   </h3>
-                  {ProjectDetailsData.map(
-                    (projectDetail: ProjectDetailsDataDTo) => (
-                      <select
-                        key={projectDetail.name}
-                        className="p-5"
-                        onChange={(e) => console.log(e.target.value)}
-                      >
-                        {Object.entries(projectDetail.status).map(
-                          ([key, value]) => (
-                            <option
-                              key={key}
-                              value={key}
-                              className={`${
-                                value === "Pending"
-                                  ? "text-red-500"
-                                  : value === "In progress"
-                                  ? "text-blue-500"
-                                  : value === "Complete"
-                                  ? "text-green-500"
-                                  : ""
-                              }`}
-                            >
-                              {value}
-                            </option>
-                          )
-                        )}
-                      </select>
-                    )
-                  )}
                 </div>
               </div>
+
+              {allProjects.map(
+                (projectDetail: ProjectDetailsDataDTo, index) => (
+                  <div key={index} className="grid grid-cols-4 gap-2 p-2">
+                    <div className="col-span-1">
+                      <Link
+                        href={`/employer-dashboard/employer-project/1/project-update`}
+                      >
+                        <p className="hover:bg-color_hover p-5 cursor-pointer">
+                          {projectDetail.projectName}
+                        </p>
+                      </Link>
+                    </div>
+                    <div className="col-span-1">
+                      <p className="hover:bg-color_hover p-5">
+                        {projectDetail.startDate}
+                      </p>
+                    </div>
+                    <div className="col-span-1">
+                      <p className="hover:bg-color_hover p-5">
+                        {projectDetail.dueDate}
+                      </p>
+                    </div>
+                    <div className="col-span-1">
+                      {/*
+                    <select
+                     
+                      className="p-5"
+                      onChange={(e) => console.log(e.target.value)}
+                    >
+                      {Object.entries(projectDetail.status).map(
+                        ([key, value]) => (
+                          <option
+                            key={key}
+                            value={key}
+                            className={`${
+                              projectDetail.status === "Pending"
+                                ? "text-red-500"
+                                : projectDetail.status === "In progress"
+                                ? "text-blue-500"
+                                : projectDetail.status === "Complete"
+                                ? "text-green-500"
+                                : ""
+                            }`}
+                          >
+                            {projectDetail.status}
+                          </option>
+                        )
+                      )}
+                          </select>  */}
+                    </div>
+                  </div>
+                )
+              )}
             </div>
           </div>
         </div>
