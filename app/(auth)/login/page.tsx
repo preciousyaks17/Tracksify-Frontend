@@ -1,11 +1,14 @@
 "use client";
 import axios from "axios";
 import Logo from "@/components/logo";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { apiClient } from "@/helpers/apiclient";
 
 import * as z from "zod";
+
 
 const loginFornSchema = z.object({
   email: z.string().min(1, { message: "Email is required" }).email({
@@ -27,9 +30,49 @@ const LoginPage = () => {
     resolver: zodResolver(loginFornSchema),
   });
 
-  const onSubmit: SubmitHandler<ValidationSchema> = (data) => {
-    console.log(data);
-    router.push("/employer-dashboard");
+  function LoginPage(){
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  }
+
+  const [loading, setLoading] = useState(false)
+const[error, setError]= useState("");
+  const onSubmit: SubmitHandler<ValidationSchema> = async (data) => {
+    try {
+      setLoading(true)
+      const userDetails = await apiClient.post('api/Auth/Login', {
+        email: data.email,
+        password: data.password
+      }).then(res => res.data);
+      
+//console.log( 'this is userType' , userDetails);
+      localStorage.setItem('token', userDetails.token);
+      localStorage.setItem('user', userDetails.user);
+
+      if (userDetails.user.userType === 0) {
+        router.push("/employer-dashboard");
+      } else if (userDetails.user.userType === 1) {
+        router.push("/employee-dashboard");
+      } else {
+       setError('Invalid User'); 
+        
+      }
+
+
+      
+    } 
+    catch (err: any) {
+      
+      setError( err.message || "An error occurred");
+    } finally {
+      setLoading(false);
+    }
+   // console.log(data);
+    //router.push("/employee-dashboard");
+    
+
   };
 
   // const handleLogin = () => {
