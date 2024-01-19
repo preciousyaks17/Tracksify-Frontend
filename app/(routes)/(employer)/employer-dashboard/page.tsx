@@ -180,6 +180,7 @@ const Page = () => {
               <h1 className="text-text_tertiary font-bold text-lg pt-4 pl-6 mt-4">
                 Due Project
               </h1>
+<<<<<<< HEAD
               <div className="grid grid-cols-4 gap-2 p-2">
                 <div className="col-span-1">
                   <h3 className="text-text_tertiary font-bold text-sm p-5">
@@ -262,6 +263,113 @@ const Page = () => {
                     )
                   )}
                 </div>
+=======
+              <div className="grid grid-cols-4 gap-2 p-2   ">
+                <h3 className=" text-text_tertiary font-bold  text-sm p-5">
+                  Project Name
+                </h3>
+                <h3 className="text-text_tertiary font-bold text-sm  p-5">
+                  Start Date
+                </h3>
+                <h3 className=" text-text_tertiary font-bold text-sm p-5">
+                  Due Date
+                </h3>
+
+                <h3 className="text-text_tertiary font-bold text-sm p-5">
+                  Status
+                </h3>
+
+                {/* GRID 1 */}
+                <Link
+                  href="/employer-dashboard/project-details/1"
+                  className=" hover:bg-color_hover p-5 cursor-pointer"
+                >
+                  Project 1
+                </Link>
+
+                <p className=" hover:bg-color_hover p-5">Dec 1, 2023</p>
+                <p className=" hover:bg-color_hover p-5">Dec 31, 2023</p>
+                <select
+                  className="p-5"
+                  onChange={(e) => console.log(e.target.value)}
+                >
+                  <option value="In Progress" className="text-yellow-500">
+                    In Progress
+                  </option>
+                  <option value="Pending" className="text-red-500">
+                    Pending
+                  </option>
+                  <option
+                    value="Completed  "
+                    className="text-green-500 border-none"
+                  >
+                    Completed
+                  </option>
+                </select>
+                {/*GRID 2*/}
+                <p className=" p-5">Project 2</p>
+                <p className=" p-5">Dec 1, 2023</p>
+                <p className=" p-5">Dec 31, 2023</p>
+                <select
+                  className="p-5"
+                  onChange={(e) => console.log(e.target.value)}
+                >
+                  <option value="In Progress" className="text-yellow-500">
+                    In Progress
+                  </option>
+                  <option value="Pending" className="text-red-500">
+                    Pending
+                  </option>
+                  <option
+                    value="Completed "
+                    className="text-green-500 border-none"
+                  >
+                    Completed
+                  </option>
+                </select>
+                {/*GRID 2*/}
+                <p className=" p-5">Project 3</p>
+                <p className=" p-5">Dec 1, 2023</p>
+                <p className=" p-5">Dec 31, 2023</p>
+                <select
+                  className="p-5 text-yellow-500"
+                  onChange={(e) => console.log(e.target.value)}
+                >
+                  <option value="In Progress" className="text-yellow-500">
+                    In Progress
+                  </option>
+                  <option value="Pending" className="text-red-500">
+                    Pending
+                  </option>
+                  <option
+                    value="Completed "
+                    className="text-green-500 border-none"
+                  >
+                    Completed
+                  </option>
+                </select>
+                {/*GRID 2*/}
+                <p className="p-5">Project 4</p>
+                <p className=" p-5">Dec 1, 2023</p>
+                <p className=" p-5">Dec 31, 2023</p>
+                <select
+                  className="p-5"
+                  onChange={(e) => console.log(e.target.value)}
+                >
+                  <option value="In Progress" className="text-yellow-500">
+                    In Progress
+                  </option>
+                  <option value="Pending" className="text-red-500">
+                    Pending
+                  </option>
+                  <option
+                    value="Completed "
+                    className="text-green-500 border-none"
+                  >
+                    Completed
+                  </option>
+                </select>
+>>>>>>> parent of 68249b1 (latest project update)
               </div>
             </div>
           </div>
