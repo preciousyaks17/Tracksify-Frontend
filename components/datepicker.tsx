@@ -2,7 +2,17 @@ import React, { ReactNode, useState } from "react";
 import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 
-export const DatePicker = ({ label, icon, setDate }) => {
+interface DatePickerProps {
+  label: string;
+  icon: ReactNode; // Assuming the icon is a ReactNode, you can adjust the type accordingly
+  setDate: (date: Date) => void;
+}
+
+export const DatePicker: React.FC<DatePickerProps> = ({
+  label,
+  icon,
+  setDate,
+}) => {
   return (
     <Datetime
       onChange={(e) => setDate(new Date(e.toLocaleString()))}

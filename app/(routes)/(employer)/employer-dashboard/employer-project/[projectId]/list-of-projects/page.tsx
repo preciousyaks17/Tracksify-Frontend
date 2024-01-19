@@ -23,6 +23,7 @@ const Projects = () => {
                 <div></div>
                 <div className=" w-[200px] ">
                   <DatePicker
+                    setDate={() => {}}
                     label={"Search by dates"}
                     icon={
                       <svg

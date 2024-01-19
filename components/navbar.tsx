@@ -1,9 +1,6 @@
-"use client";
-
 import Link from "next/link";
 import Logo from "./logo";
 import React from "react";
-import { usePathname } from "next/navigation";
 
 const NavLinks = {
   employer: [
@@ -35,10 +32,7 @@ const NavLinks = {
 let userRole = "employer";
 const navLinks =
   userRole === "employer" ? NavLinks.employer : NavLinks.employee;
-
 const Navbar = () => {
-  const pathname = usePathname();
-
   return (
     <div className="flex items-center justify-between p-4 bg-white">
       <div className="p-4  ">
@@ -49,9 +43,7 @@ const Navbar = () => {
           <Link
             href={link.link}
             key={link.name}
-            className={`hover:bg-navbar_color rounded-full px-3 py-3 m-2 hover:text-text_secondary  font-semi-bold ${
-              pathname === link.link && "bg-navbar_color text-text_secondary"
-            }`}
+            className=" hover:bg-navbar_color    rounded-full px-3 py-3 m-2 hover:text-text_secondary  font-semi-bold  text-text_tertiary hover:text_secondary"
           >
             {link.name}
           </Link>

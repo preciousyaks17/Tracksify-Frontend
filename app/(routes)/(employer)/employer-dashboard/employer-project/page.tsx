@@ -10,42 +10,6 @@ import MultiSelectDropdown from "@/components/drop-down-menu";
 import React from "react";
 import router from "next/router";
 
-export interface ProjectDetailsDataDTo {
-  name: string;
-  startDate: string;
-  dueDate: string;
-  status: Status;
-}
-
-interface Status {
-  progress: string;
-  done: string;
-  pending: string;
-}
-
-const ProjectDetailsData = [
-  {
-    name: "My name",
-    startDate: "23-05-2024",
-    dueDate: "23-05-2024",
-    status: {
-      progress: "In progress",
-      done: "Complete",
-      pending: "Pending",
-    },
-  },
-  {
-    name: "My name",
-    startDate: "23-05-2024",
-    dueDate: "23-05-2024",
-    status: {
-      progress: "In progress",
-      done: "Complete",
-      pending: "Pending",
-    },
-  },
-];
-
 const EmployerProjectDetails = () => {
   const [showModal, setShowModal] = useState(false);
   const EMPLOYEE = [
@@ -89,8 +53,10 @@ const EmployerProjectDetails = () => {
                   placeholder="Email Address, Separated by comma"
   /> */}
                 <div className="flex space-x-5">
+                  {" "}
                   <div className="w-full">
                     <DatePicker
+                      setDate={() => {}}
                       label={"Start Time"}
                       icon={
                         <svg
@@ -113,6 +79,7 @@ const EmployerProjectDetails = () => {
                   <div className="w-full">
                     <DatePicker
                       label={"End Time"}
+                      setDate={() => {}}
                       icon={
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -171,92 +138,159 @@ const EmployerProjectDetails = () => {
                 </div>
               </Modal>
             </Fragment>
-            <div className="bg-white h-half w-3/4 mx-auto">
-              <h1 className="text-text_tertiary font-bold text-lg pt-4 pl-6 mt-4">
+            <div className="bg-white h-half w-3/4 mx-auto  ">
+              <h1 className="text-text_tertiary font-bold  text-lg  pt-4 pl-6 mt-4">
                 Projects LineUp
               </h1>
-              <div className="grid grid-cols-4 gap-2 p-2">
-                <div className="col-span-1">
-                  <h3 className="text-text_tertiary font-bold text-sm p-5">
-                    Project Name
-                  </h3>
-                  {ProjectDetailsData.map(
-                    (projectDetail: ProjectDetailsDataDTo) => (
-                      <Link
-                        key={projectDetail.name}
-                        href={`/employer-dashboard/employer-project/1/project-update`}
-                      >
-                        <p className="hover:bg-color_hover p-5 cursor-pointer">
-                          {projectDetail.name}
-                        </p>
-                      </Link>
-                    )
-                  )}
-                </div>
-                <div className="col-span-1">
-                  <h3 className="text-text_tertiary font-bold text-sm p-5">
-                    Start Date
-                  </h3>
-                  {ProjectDetailsData.map(
-                    (projectDetail: ProjectDetailsDataDTo) => (
-                      <p
-                        key={projectDetail.name}
-                        className="hover:bg-color_hover p-5"
-                      >
-                        {projectDetail.startDate}
-                      </p>
-                    )
-                  )}
-                </div>
-                <div className="col-span-1">
-                  <h3 className="text-text_tertiary font-bold text-sm p-5">
-                    Due Date
-                  </h3>
-                  {ProjectDetailsData.map(
-                    (projectDetail: ProjectDetailsDataDTo) => (
-                      <p
-                        key={projectDetail.name}
-                        className="hover:bg-color_hover p-5"
-                      >
-                        {projectDetail.dueDate}
-                      </p>
-                    )
-                  )}
-                </div>
-                <div className="col-span-1">
-                  <h3 className="text-text_tertiary font-bold text-sm p-5">
-                    Status
-                  </h3>
-                  {ProjectDetailsData.map(
-                    (projectDetail: ProjectDetailsDataDTo) => (
-                      <select
-                        key={projectDetail.name}
-                        className="p-5"
-                        onChange={(e) => console.log(e.target.value)}
-                      >
-                        {Object.entries(projectDetail.status).map(
-                          ([key, value]) => (
-                            <option
-                              key={key}
-                              value={key}
-                              className={`${
-                                value === "Pending"
-                                  ? "text-red-500"
-                                  : value === "In progress"
-                                  ? "text-blue-500"
-                                  : value === "Complete"
-                                  ? "text-green-500"
-                                  : ""
-                              }`}
-                            >
-                              {value}
-                            </option>
-                          )
-                        )}
-                      </select>
-                    )
-                  )}
-                </div>
+              <div className="grid grid-cols-4 gap-2 p-2 ">
+                <h3 className=" text-text_tertiary font-bold  text-sm p-5">
+                  Project Name
+                </h3>
+                <h3 className="text-text_tertiary font-bold text-sm  p-5">
+                  Start Date
+                </h3>
+                <h3 className=" text-text_tertiary font-bold text-sm p-5">
+                  Due Date
+                </h3>
+
+                <h3 className="text-text_tertiary font-bold text-sm p-5">
+                  Status
+                </h3>
+
+                {/* GRID 1 */}
+                <Link href="employer-project/1/list-of-projects">
+                  <p className=" hover:bg-color_hover p-5 cursor-pointer">
+                    Project 1
+                  </p>
+                </Link>
+
+                <p className=" hover:bg-color_hover p-5">Dec 1, 2023</p>
+                <p className=" hover:bg-color_hover p-5">Dec 31, 2023</p>
+                <select
+                  className="p-5"
+                  onChange={(e) => console.log(e.target.value)}
+                >
+                  <option value="In Progress" className="text-yellow-500">
+                    In Progress
+                  </option>
+                  <option value="Pending" className="text-red-500">
+                    Pending
+                  </option>
+                  <option
+                    value="Completed "
+                    className="text-green-500 border-none"
+                  >
+                    Completed
+                  </option>
+                </select>
+
+                {/*GRID 2*/}
+                <p className=" p-5">Project 2</p>
+                <p className=" p-5">Dec 1, 2023</p>
+                <p className=" p-5">Dec 31, 2023</p>
+                <select
+                  className="p-5"
+                  onChange={(e) => console.log(e.target.value)}
+                >
+                  <option value="In Progress" className="text-yellow-500">
+                    In Progress
+                  </option>
+                  <option value="Pending" className="text-red-500">
+                    Pending
+                  </option>
+                  <option
+                    value="Completed "
+                    className="text-green-500 border-none"
+                  >
+                    Completed
+                  </option>
+                </select>
+                {/*GRID 2*/}
+                <p className=" p-5">Project 3</p>
+                <p className=" p-5">Dec 1, 2023</p>
+                <p className=" p-5">Dec 31, 2023</p>
+                <select
+                  className="p-5"
+                  onChange={(e) => console.log(e.target.value)}
+                >
+                  <option value="In Progress" className="text-yellow-500">
+                    In Progress
+                  </option>
+                  <option value="Pending" className="text-red-500">
+                    Pending
+                  </option>
+                  <option
+                    value="Completed "
+                    className="text-green-500 border-none"
+                  >
+                    Completed
+                  </option>
+                </select>
+
+                {/*GRID 2*/}
+                <p className="p-5">Project 4</p>
+                <p className=" p-5">Dec 1, 2023</p>
+                <p className=" p-5">Dec 31, 2023</p>
+                <select
+                  className="p-5"
+                  onChange={(e) => console.log(e.target.value)}
+                >
+                  <option value="In Progress" className="text-yellow-500">
+                    In Progress
+                  </option>
+                  <option value="Pending" className="text-red-500">
+                    Pending
+                  </option>
+                  <option
+                    value="Completed "
+                    className="text-green-500 border-none"
+                  >
+                    Completed
+                  </option>
+                </select>
+
+                {/*GRID 2*/}
+                <p className="p-5">Project 5</p>
+                <p className=" p-5">Dec 1, 2023</p>
+                <p className=" p-5">Dec 31, 2023</p>
+                <select
+                  className="p-5"
+                  onChange={(e) => console.log(e.target.value)}
+                >
+                  <option value="In Progress" className="text-yellow-500">
+                    In Progress
+                  </option>
+                  <option value="Pending" className="text-red-500">
+                    Pending
+                  </option>
+                  <option
+                    value="Completed "
+                    className="text-green-500 border-none"
+                  >
+                    Completed
+                  </option>
+                </select>
+
+                <p className="p-5">Project 6</p>
+                <p className=" p-5">Dec 1, 2023</p>
+                <p className=" p-5">Dec 31, 2023</p>
+                <select
+                  className="p-5"
+                  onChange={(e) => console.log(e.target.value)}
+                >
+                  <option value="In Progress" className="text-yellow-500">
+                    In Progress
+                  </option>
+                  <option value="Pending" className="text-red-500">
+                    Pending
+                  </option>
+                  <option
+                    value="Completed "
+                    className="text-green-500 border-none"
+                  >
+                    Completed
+                  </option>
+                </select>
               </div>
             </div>
           </div>
