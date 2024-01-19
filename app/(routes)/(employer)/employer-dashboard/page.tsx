@@ -1,28 +1,91 @@
 "use client";
-import axios from "axios";
-import { Fragment, useState } from "react";
-import Link from "next/link";
 import Logo from "@/components/logo";
+import Link from "next/link";
+import Modal from "@/components/modal";
+import { useRouter } from "next/navigation";
+import { Fragment, useEffect, useState } from "react";
 import { DatePicker } from "@/components/datepicker";
 import MultiSelectDropdown from "@/components/drop-down-menu";
-import Modal from "@/components/modal";
 
-const EmployerDashboardPage = () => {
+import React from "react";
+import router from "next/router";
+import axios from "axios";
+
+export interface ProjectDetailsDataDTo {
+  projectId: string;
+  projectName: string;
+  projectDescription: string;
+  startDate: string;
+  dueDate: string;
+  status: string;
+  projectAssignees: string[];
+}
+
+interface Status {
+  progress: string;
+  done: string;
+  pending: string;
+}
+
+const ProjectDetailsData = [
+  {
+    projectId: "",
+    projectName: "My name",
+    projectDescription: "My name",
+    startDate: "23-05-2024",
+    dueDate: "23-05-2024",
+    status: "",
+    projectAssignees: [],
+  },
+];
+
+const Page = () => {
   const [showModal, setShowModal] = useState(false);
   const [projectName, setProjectName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [dueDate, setDueDate] = useState("");
-  const [projectAssignees, setProjectAssignees] = useState([""]);
+  const [projectAssignees, setProjectAssignees] = useState<string[]>([]);
   const [projectDescription, setProjectDescription] = useState("");
+  const [allUsers, setAllUsers] = useState([]);
+  const [allProjects, setAllProjects] = useState<ProjectDetailsDataDTo[]>([]);
 
-  const EMPLOYEE = [
-    "Bukola Adedayo",
-    "Precious Yakubu",
-    "Emmanuel Adebanjo",
-    "Malthida Duku",
-    "Victor Akan",
-    "Similoluwa Benjamin",
-  ];
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0cmFja3NpZnkwMEBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjJlYTMxYzdlLWM4MTgtNDVkOS1iMzM1LTA4YjNkM2MxYWU4YyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkVtcGxveWVyIiwiZXhwIjoxNzA1NjcyOTk2LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUyNjMiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjUyNjMifQ.jcVbXYEewJ2xZvgKqjErmOBdCBIG276jKReAO5QW3iI";
+  useEffect(() => {
+    // Function to make the API call
+    const fetchData = async () => {
+      try {
+        // Make your API call here
+        const response = await axios.get(
+          "https://tracksify.azurewebsites.net/tracksify/user",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json", // Adjust the content type as needed
+            },
+          }
+        );
+
+        const getAllProjects = await axios.get(
+          "https://tracksify.azurewebsites.net/tracksify/project",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json", // Adjust the content type as needed
+            },
+          }
+        );
+
+        setAllProjects(getAllProjects.data);
+        setAllUsers(response.data);
+      } catch (error) {
+        console.error("Error while fetching data:", error);
+      }
+    };
+
+    // Call the fetchData function when the component is mounted
+    fetchData();
+  }, []); // The empty dependency array ensures that this effect runs only once on mount
 
   // Function to handle project creation
   const createProject = async () => {
@@ -52,7 +115,6 @@ const EmployerDashboardPage = () => {
     }
   };
 
-  //const EmployerDashboardPage = () => {
   return (
     <div className="">
       <main className="">
@@ -93,7 +155,7 @@ const EmployerDashboardPage = () => {
                   <div className="w-full">
                     <DatePicker
                       label={"Start Time"}
-                      setDate={setStartDate}
+                      setDate={() => setDueDate}
                       icon={
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -115,7 +177,7 @@ const EmployerDashboardPage = () => {
                   <div className="w-full">
                     <DatePicker
                       label={"End Time"}
-                      setDate={setDueDate}
+                      setDate={() => setDueDate}
                       icon={
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -138,13 +200,33 @@ const EmployerDashboardPage = () => {
                 <div className="">
                   <MultiSelectDropdown
                     formFieldName={"employee"}
-                    options={EMPLOYEE}
+                    options={allUsers.map(
+                      (x: any) => x.firstName + " " + x.lastName
+                    )}
                     onChange={(selectedEmployerProjectDetails) => {
                       console.debug(
                         "selectedEmployee",
                         selectedEmployerProjectDetails
                       );
-                      setProjectAssignees(selectedEmployerProjectDetails);
+                      const selected = selectedEmployerProjectDetails.map((x) =>
+                        x.split(" ")
+                      );
+                      console.log("Selected  USER", selected);
+                      const currentUserDetails = selected.map((x) =>
+                        allUsers.filter(
+                          (y: any) => x[0] == y.firstName && y.lastName == x[1]
+                        )
+                      );
+                      console.log("Current  USER", currentUserDetails);
+                      const allSelectedUserId = currentUserDetails.map((x) =>
+                        x.map((y: any) => y.userId)
+                      );
+
+                      console.log("All User  USER", allSelectedUserId);
+                      setProjectAssignees([
+                        ...projectAssignees,
+                        ...allSelectedUserId[0],
+                      ]);
                     }}
                     prompt="Select Employee "
                   />
@@ -179,116 +261,88 @@ const EmployerDashboardPage = () => {
                 </div>
               </Modal>
             </Fragment>
-            <div className="bg-white h-half w-3/4 mx-auto  ">
-              <h1 className="text-text_tertiary font-bold  text-lg  pt-4 pl-6 mt-4">
-                Projects LineUp
-              </h1>
-              <div className="grid grid-cols-4 gap-2 p-2   ">
-                <h3 className=" text-text_tertiary font-bold  text-sm p-5">
-                  Project Name
-                </h3>
-                <h3 className="text-text_tertiary font-bold text-sm  p-5">
-                  Start Date
-                </h3>
-                <h3 className=" text-text_tertiary font-bold text-sm p-5">
-                  Due Date
-                </h3>
-
-                <h3 className="text-text_tertiary font-bold text-sm p-5">
-                  Status
-                </h3>
-
-                {/* GRID 1 */}
-                <Link
-                  href="/employer-dashboard/project-details/1"
-                  className=" hover:bg-color_hover p-5 cursor-pointer"
-                >
-                  Project 1
-                </Link>
-
-                <p className=" hover:bg-color_hover p-5">Dec 1, 2023</p>
-                <p className=" hover:bg-color_hover p-5">Dec 31, 2023</p>
-                <select
-                  className="p-5"
-                  onChange={(e) => console.log(e.target.value)}
-                >
-                  <option value="In Progress" className="text-yellow-500">
-                    In Progress
-                  </option>
-                  <option value="Pending" className="text-red-500">
-                    Pending
-                  </option>
-                  <option
-                    value="Completed  "
-                    className="text-green-500 border-none"
-                  >
-                    Completed
-                  </option>
-                </select>
-                {/*GRID 2*/}
-                <p className=" p-5">Project 2</p>
-                <p className=" p-5">Dec 1, 2023</p>
-                <p className=" p-5">Dec 31, 2023</p>
-                <select
-                  className="p-5"
-                  onChange={(e) => console.log(e.target.value)}
-                >
-                  <option value="In Progress" className="text-yellow-500">
-                    In Progress
-                  </option>
-                  <option value="Pending" className="text-red-500">
-                    Pending
-                  </option>
-                  <option
-                    value="Completed "
-                    className="text-green-500 border-none"
-                  >
-                    Completed
-                  </option>
-                </select>
-                {/*GRID 2*/}
-                <p className=" p-5">Project 3</p>
-                <p className=" p-5">Dec 1, 2023</p>
-                <p className=" p-5">Dec 31, 2023</p>
-                <select
-                  className="p-5 text-yellow-500"
-                  onChange={(e) => console.log(e.target.value)}
-                >
-                  <option value="In Progress" className="text-yellow-500">
-                    In Progress
-                  </option>
-                  <option value="Pending" className="text-red-500">
-                    Pending
-                  </option>
-                  <option
-                    value="Completed "
-                    className="text-green-500 border-none"
-                  >
-                    Completed
-                  </option>
-                </select>
-                {/*GRID 2*/}
-                <p className="p-5">Project 4</p>
-                <p className=" p-5">Dec 1, 2023</p>
-                <p className=" p-5">Dec 31, 2023</p>
-                <select
-                  className="p-5"
-                  onChange={(e) => console.log(e.target.value)}
-                >
-                  <option value="In Progress" className="text-yellow-500">
-                    In Progress
-                  </option>
-                  <option value="Pending" className="text-red-500">
-                    Pending
-                  </option>
-                  <option
-                    value="Completed "
-                    className="text-green-500 border-none"
-                  >
-                    Completed
-                  </option>
-                </select>
+            <div className="bg-white h-half w-3/4 mx-auto">
+              <div className="grid grid-cols-4 gap-2 p-2">
+                <div className="col-span-1">
+                  <h3 className="text-text_tertiary font-bold text-sm p-5">
+                    Project Name
+                  </h3>
+                </div>
+                <div className="col-span-1">
+                  <h1 className="text-text_tertiary font-bold text-lg pt-4 pl-6 mt-4">
+                    Due Project
+                  </h1>
+                </div>
+                <div className="col-span-1">
+                  <h3 className="text-text_tertiary font-bold text-sm p-5">
+                    Start Date
+                  </h3>
+                </div>
+                <div className="col-span-1">
+                  <h3 className="text-text_tertiary font-bold text-sm p-5">
+                    Due Date
+                  </h3>
+                </div>
+                <div className="col-span-1">
+                  <h3 className="text-text_tertiary font-bold text-sm p-5">
+                    Status
+                  </h3>
+                </div>
               </div>
+
+              {allProjects.map(
+                (projectDetail: ProjectDetailsDataDTo, index) => (
+                  <div key={index} className="grid grid-cols-4 gap-2 p-2">
+                    <div className="col-span-1">
+                      <Link
+                        href={`/employer-dashboard/employer-project/1/project-update`}
+                      >
+                        <p className="hover:bg-color_hover p-5 cursor-pointer">
+                          {projectDetail.projectName}
+                        </p>
+                      </Link>
+                    </div>
+                    <div className="col-span-1">
+                      <p className="hover:bg-color_hover p-5">
+                        {projectDetail.startDate}
+                      </p>
+                    </div>
+                    <div className="col-span-1">
+                      <p className="hover:bg-color_hover p-5">
+                        {projectDetail.dueDate}
+                      </p>
+                    </div>
+                    <div className="col-span-1">
+                      {/*
+                    <select
+                     
+                      className="p-5"
+                      onChange={(e) => console.log(e.target.value)}
+                    >
+                      {Object.entries(projectDetail.status).map(
+                        ([key, value]) => (
+                          <option
+                            key={key}
+                            value={key}
+                            className={`${
+                              projectDetail.status === "Pending"
+                                ? "text-red-500"
+                                : projectDetail.status === "In progress"
+                                ? "text-blue-500"
+                                : projectDetail.status === "Complete"
+                                ? "text-green-500"
+                                : ""
+                            }`}
+                          >
+                            {projectDetail.status}
+                          </option>
+                        )
+                      )}
+                          </select>  */}
+                    </div>
+                  </div>
+                )
+              )}
             </div>
           </div>
         </div>
@@ -297,4 +351,4 @@ const EmployerDashboardPage = () => {
   );
 };
 
-export default EmployerDashboardPage;
+export default Page;

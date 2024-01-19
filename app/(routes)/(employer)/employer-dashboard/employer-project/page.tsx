@@ -56,6 +56,7 @@ const EmployerProjectDetails = () => {
                   {" "}
                   <div className="w-full">
                     <DatePicker
+                      setDate={() => {}}
                       label={"Start Time"}
                       icon={
                         <svg
@@ -78,6 +79,7 @@ const EmployerProjectDetails = () => {
                   <div className="w-full">
                     <DatePicker
                       label={"End Time"}
+                      setDate={() => {}}
                       icon={
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
