@@ -58,6 +58,11 @@ interface UpdateProjectByProjectIdResponse {
   projectAssignees: string[];
 }
 
+interface DeleteProjectResponse {
+  status: string;
+  message: string;
+}
+
 class ProjectService {
   static async getProject(): Promise<AxiosResponse<GetProjectResponse>> {
     return await axiosConfig.get("project");
@@ -80,6 +85,12 @@ class ProjectService {
     requestBody: UpdateProjectByProjectIdRequest
   ): Promise<AxiosResponse<UpdateProjectByProjectIdResponse>> {
     return await axiosConfig.put(`project/${projectId}`, requestBody);
+  }
+
+  static async deleteProject(
+    projectId: string
+  ): Promise<AxiosResponse<DeleteProjectResponse>> {
+    return await axiosConfig.delete(`project/${projectId}`);
   }
 }
 
