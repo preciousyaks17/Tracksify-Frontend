@@ -23,6 +23,7 @@ const Projects = () => {
                 <div></div>
                 <div className=" w-[200px] ">
                   <DatePicker
+                    setDate={() => {}}
                     label={"Search by dates"}
                     icon={
                       <svg
@@ -43,32 +44,33 @@ const Projects = () => {
                   />
                 </div>
               </div>
-              <div className=" h-20 grid grid-cols-2 gap-2 p-1 border-2 border-#D5E2EE rounded-md m-2 mt-11 items-center">
-                <Link href="/employer-project/12345/project-update">
-                  <p className="  text-text_tertiary text-sm hover:bg-color_hover p-5 cursor-pointer">
+              <Link href="/employer-dashboard/employer-project/1/project-update">
+                <div className=" h-20 grid grid-cols-2 gap-2 p-1 border-2 border-#D5E2EE rounded-md m-2 mt-11 items-center hover:bg-color_hover">
+                  <p className="  text-text_tertiary text-sm  p-5 cursor-pointer">
                     Project Name
                   </p>
-                </Link>
-                <p className="text-text_tertiary font-bold text-sm  p-5">
-                  <select
-                    className="p-3  focus:outline-none"
-                    onChange={(e) => console.log(e.target.value)}
-                  >
-                    <option value="In Progress" className="text-yellow-500">
-                      In Progress
-                    </option>
-                    <option value="Pending" className="text-red-500">
-                      Pending
-                    </option>
-                    <option
-                      value="Completed "
-                      className="text-green-500 border-none"
+
+                  <p className="text-text_tertiary font-bold text-sm  p-5">
+                    <select
+                      className="p-3  focus:outline-none"
+                      onChange={(e) => console.log(e.target.value)}
                     >
-                      Completed
-                    </option>
-                  </select>
-                </p>
-              </div>
+                      <option value="In Progress" className="text-yellow-500">
+                        In Progress
+                      </option>
+                      <option value="Pending" className="text-red-500">
+                        Pending
+                      </option>
+                      <option
+                        value="Completed "
+                        className="text-green-500 border-none"
+                      >
+                        Completed
+                      </option>
+                    </select>
+                  </p>
+                </div>
+              </Link>
 
               <div className=" h-20 grid grid-cols-2 gap-2 p-1 border-2 border-#D5E2EE rounded-md m-2 mt-5 items-center">
                 <p className=" text-text_tertiary text-sm p-5">Project Name</p>

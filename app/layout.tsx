@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 
 import "./globals.css";
 import { Toaster } from "sonner";
+import QueryProvider from "@/utils/provider";
 
 const work_sans = Work_Sans({ subsets: ["latin"] });
 
@@ -18,6 +19,7 @@ const product_sans = localFont({
 
   variable: "--font-product-sans",
 });
+
 
 export const metadata: Metadata = {
   title: "Tracksify",
@@ -34,7 +36,10 @@ export default function RootLayout({
   
   return (
     <html lang="en" className={`${product_sans.variable}`}>
-      <body className={work_sans.className}>{children}</body>
+      <body className={work_sans.className}>
+          {children}
+          <Toaster />
+      </body>
     </html>
   );
 }

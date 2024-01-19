@@ -1,9 +1,7 @@
 "use client";
 import Link from "next/link";
 import Logo from "@/components/logo";
-
 import React, { ReactEventHandler, useState } from "react";
-
 import { toast } from "sonner";
 
 const page = () => {
