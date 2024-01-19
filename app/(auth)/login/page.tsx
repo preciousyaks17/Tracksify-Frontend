@@ -45,7 +45,7 @@ const[error, setError]= useState("");
   const onSubmit: SubmitHandler<ValidationSchema> = async (data) => {
     try {
       setLoading(true)
-      const userDetails = await apiClient.post('api/Auth/Login', {
+      const userDetails = await apiClient.post('tracksify/Auth/Login', {
         email: data.email,
         password: data.password
       }).then(res => res.data);
