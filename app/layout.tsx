@@ -20,6 +20,7 @@ const product_sans = localFont({
   variable: "--font-product-sans",
 });
 
+
 export const metadata: Metadata = {
   title: "Tracksify",
   description:
@@ -34,8 +35,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${product_sans.variable}`}>
       <body className={work_sans.className}>
-        {children}
-        <Toaster />
+          {children}
+          <Toaster />
       </body>
     </html>
   );

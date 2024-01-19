@@ -1,6 +1,6 @@
 "use client";
 import Logo from "@/components/logo";
-import useProject from "@/hooks/useProject";
+import useProject from "@/hooks/useProjects";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -33,6 +33,7 @@ const LoginPage = () => {
   const onSubmit: SubmitHandler<ValidationSchema> = (data) => {
     console.log(data);
     router.push("/employer-dashboard");
+    toast.success("Login Successfully");
   };
 
   // const handleLogin = () => {

@@ -1,9 +1,8 @@
 "use client";
 import Link from "next/link";
 import Logo from "@/components/logo";
-
+import { Icon2 } from "@/components/icon2";
 import React, { useState } from "react";
-
 const page = () => {
   return (
     <div className="">
@@ -14,11 +13,11 @@ const page = () => {
               Good Morning ,
             </h1>
 
-            <div className="bg-white h-half w-3/4 mx-auto  ">
+            <div className="bg-white h-half w-4/5 mx-auto  ">
               <h1 className="text-text_tertiary font-bold  text-lg  pt-10 pl-6 mt-4">
                 Recent Projects
               </h1>
-              <div className="grid grid-cols-5 gap-2 p-10   ">
+              <div className="grid grid-cols-5 gap-0 p-5">
                 <h3 className=" text-text_tertiary font-bold  text-sm p-5">
                   Project Name
                 </h3>
@@ -33,31 +32,31 @@ const page = () => {
                   Status
                 </h3>
 
-                <h3 className="text-text_tertiary font-bold text-sm p-5"></h3>
+                <h3 className="text-text_tertiary font-bold text-sm"></h3>
 
                 {/* GRID 1 */}
-                <p className=" hover:bg-color_hover p-5">Project 1</p>
+                <p className=" hover:bg-color_hover p-5">Project 1 </p>
                 <p className=" hover:bg-color_hover p-5">Dec 1, 2023</p>
                 <p className=" hover:bg-color_hover p-5">Dec 31, 2023</p>
-
-                <select
-                  className="p-5"
-                  onChange={(e) => console.log(e.target.value)}
-                >
-                  <option value="In Progress" className="text-yellow-500">
-                    In Progress
-                  </option>
-                  <option value="Pending" className="text-red-500">
-                    Pending
-                  </option>
-                  <option
-                    value="Completed  "
-                    className="text-green-500 border-none"
+                {
+                  <select
+                    className=""
+                    onChange={(e) => console.log(e.target.value)}
                   >
-                    Completed
-                  </option>
-                </select>
-                <div className="flex justify-end pr-20.3 pb-4 ">
+                    <option value="In Progress" className="text-yellow-500">
+                      In Progress
+                    </option>
+
+                    <option value="2" className="text-green-500 border-none">
+                      Submitted
+                    </option>
+                  </select>
+                }
+
+                <div className="flex justify-end pb-4">
+                  <div className="pt-5">
+                    <Icon2 />
+                  </div>
                   <Link href="/checkin">
                     <button className="bg-text_secondary text-white hover:text-text_tertiary hover:bg-color_hover rounded px-4 py-2 mt-4">
                       Check In
