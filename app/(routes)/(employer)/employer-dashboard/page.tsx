@@ -155,7 +155,7 @@ const Page = () => {
                   <div className="w-full">
                     <DatePicker
                       label={"Start Time"}
-                      setDate={setStartDate}
+                      setDate={() => setDueDate}
                       icon={
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -177,7 +177,7 @@ const Page = () => {
                   <div className="w-full">
                     <DatePicker
                       label={"End Time"}
-                      setDate={setDueDate}
+                      setDate={() => setDueDate}
                       icon={
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -201,7 +201,7 @@ const Page = () => {
                   <MultiSelectDropdown
                     formFieldName={"employee"}
                     options={allUsers.map(
-                      (x) => x.firstName + " " + x.lastName
+                      (x: any) => x.firstName + " " + x.lastName
                     )}
                     onChange={(selectedEmployerProjectDetails) => {
                       console.debug(
@@ -214,12 +214,12 @@ const Page = () => {
                       console.log("Selected  USER", selected);
                       const currentUserDetails = selected.map((x) =>
                         allUsers.filter(
-                          (y) => x[0] == y.firstName && y.lastName == x[1]
+                          (y: any) => x[0] == y.firstName && y.lastName == x[1]
                         )
                       );
                       console.log("Current  USER", currentUserDetails);
                       const allSelectedUserId = currentUserDetails.map((x) =>
-                        x.map((y) => y.userId)
+                        x.map((y: any) => y.userId)
                       );
 
                       console.log("All User  USER", allSelectedUserId);
