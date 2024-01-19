@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 
 import "./globals.css";
 
+import QueryProvider from "@/utils/provider";
 const work_sans = Work_Sans({ subsets: ["latin"] });
 
 const product_sans = localFont({

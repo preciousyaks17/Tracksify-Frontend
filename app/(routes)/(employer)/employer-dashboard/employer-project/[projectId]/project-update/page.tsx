@@ -89,7 +89,7 @@ const ProjectUpdate = () => {
   );
 };
 
-export const ProjectMessage = ({
+const ProjectMessage = ({
   assignee,
   date,
   workStartTime,
