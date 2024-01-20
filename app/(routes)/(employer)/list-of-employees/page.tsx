@@ -6,10 +6,15 @@ import React, { useState, Fragment } from "react";
 import { handleClientScriptLoad } from "next/script";
 import Dropdown from "@/components/drop-down-menu";
 import MultiSelectDropdown from "@/components/drop-down-menu";
+import useUser from "@/hooks/useUser";
 
 const Employee = () => {
   const [showModal, setShowModal] = React.useState(false);
   const router = useRouter();
+  const {getUserQuery} = useUser()
+
+  console.log(getUserQuery.data)
+
   return (
     <Fragment>
       <div className="bg-background_foreground h-screen">
