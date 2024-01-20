@@ -19,7 +19,7 @@ const page = () => {
               </h1>
               <div className="grid grid-cols-5 gap-0 p-5">
                 <h3 className=" text-text_tertiary font-bold  text-sm p-5">
-                  Project Name
+                  Projects
                 </h3>
                 <h3 className="text-text_tertiary font-bold text-sm  p-5">
                   Start Date
@@ -35,10 +35,12 @@ const page = () => {
                 <h3 className="text-text_tertiary font-bold text-sm"></h3>
 
                 {/* GRID 1 */}
-                <p className=" hover:bg-color_hover p-5">Project 1 </p>
-                <p className=" hover:bg-color_hover p-5">Dec 1, 2023</p>
-                <p className=" hover:bg-color_hover p-5">Dec 31, 2023</p>
-                {
+                <p className="  p-5">Project 1 </p>
+                <p className="  p-5">Dec 1, 2023</p>
+                <p className="  p-5">Dec 31, 2023</p>
+                <p className="  p-5">Pending</p>
+                
+                {/*{
                   <select
                     className=""
                     onChange={(e) => console.log(e.target.value)}
@@ -51,7 +53,7 @@ const page = () => {
                       Submitted
                     </option>
                   </select>
-                }
+                }*/}
 
                 <div className="flex justify-end pb-4">
                   <div className="pt-5">
