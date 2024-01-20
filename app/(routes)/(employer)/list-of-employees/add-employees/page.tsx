@@ -22,40 +22,41 @@ const ListEmployeesPage = () => {
         </div>
         {/* GRID 1 */}
         <div className="grid grid-cols-4 gap-2 p-2">
+          {}
           <p className="p-5">Bukola Dayo</p>
           <p className="p-5">ba@gmail.com</p>
           <p className="p-5">12/12/2021</p>
           <p className="p-5">Developer </p>
 
           {/*GRID 2*/}
-          <p className="p-5">John Doe</p>
+          {/* <p className="p-5">John Doe</p>
           <p className="p-5">jd@gmail.com</p>
           <p className="p-5">12/12/2021</p>
-          <p className="p-5">Developer</p>
+          <p className="p-5">Developer</p> */}
 
           {/*GRID 3*/}
-          <p className="p-5">Emma Banjo</p>
+          {/* <p className="p-5">Emma Banjo</p>
           <p className="p-5">ea@gmail.com</p>
           <p className="p-5">12/12/2021</p>
-          <p className="p-5">Developer</p>
+          <p className="p-5">Developer</p> */}
 
           {/*GRID 4*/}
-          <p className="p-5">Mathilda Duku </p>
+          {/* <p className="p-5">Mathilda Duku </p>
           <p className="p-5">md@gmail.com</p>
           <p className="p-5">12/12/2021</p>
-          <p className="p-5">Developer</p>
+          <p className="p-5">Developer</p> */}
 
           {/*GRID 5*/}
-          <p className="p-5">Simi Benjamin </p>
+          {/* <p className="p-5">Simi Benjamin </p>
           <p className="p-5">sb@gmail.com</p>
           <p className="p-5">12/12/2021</p>
-          <p className="p-5">Developer</p>
+          <p className="p-5">Developer</p> */}
 
           {/*GRID 6*/}
-          <p className="p-5">Victor Akan</p>
+          {/* <p className="p-5">Victor Akan</p>
           <p className="p-5">va@gmail.com</p>
           <p className="p-5">12/12/2021</p>
-          <p className="p-5">Developer</p>
+          <p className="p-5">Developer</p> */}
         </div>
       </div>
     </div>
