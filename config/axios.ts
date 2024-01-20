@@ -5,35 +5,34 @@ const axiosConfig = axios.create({
   withCredentials: false,
 });
 
-// axiosConfig.interceptors.request.use(
-//   function (config) {
-//     let authToken;
+axiosConfig.interceptors.request.use(
+  function (config) {
 
-//     const authStateString = localStorage.getItem("auth");
-//     if (authStateString) {
-//       const authState = JSON.parse(authStateString);
+    const jwt = localStorage.getItem("token");
 
-//       authToken = authState?.state?.token;
-//     }
+    console.log("jwt", jwt);
+    if (jwt) {
 
-//     if (authToken) {
-//       config.headers.Authorization = "Bearer " + authToken;
-//     }
+      config.headers.Authorization = 'Bearer ' +jwt
+    }
+    return config;
+  },
+  function (err) {
+    return Promise.reject(err);
+  }
+);
 
-//     return config;
-//   },
-//   function (err) {
-//     return Promise.reject(err);
-//   }
-// );
-
-// axiosConfig.interceptors.response.use(
-//   function (response) {
-//     return response;
-//   },
-//   function (err) {
-//     return Promise.reject(err);
-//   }
-// );
+axiosConfig.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (err) {
+    if(err.response.status === 401) {
+      // localStorage.removeItem("token");
+      // window.location.href = "/login";
+    }
+    return Promise.reject(err);
+  }
+);
 
 export default axiosConfig;

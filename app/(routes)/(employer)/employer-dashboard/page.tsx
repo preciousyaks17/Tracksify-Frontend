@@ -10,6 +10,7 @@ import MultiSelectDropdown from "@/components/drop-down-menu";
 import React from "react";
 import router from "next/router";
 import axios from "axios";
+import axiosConfig from "@/config/axios";
 
 export interface ProjectDetailsDataDTo {
   projectId: string;
@@ -49,32 +50,20 @@ const Page = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [allProjects, setAllProjects] = useState<ProjectDetailsDataDTo[]>([]);
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0cmFja3NpZnkwMEBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjJlYTMxYzdlLWM4MTgtNDVkOS1iMzM1LTA4YjNkM2MxYWU4YyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkVtcGxveWVyIiwiZXhwIjoxNzA1NjcyOTk2LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUyNjMiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjUyNjMifQ.jcVbXYEewJ2xZvgKqjErmOBdCBIG276jKReAO5QW3iI";
   useEffect(() => {
     // Function to make the API call
     const fetchData = async () => {
       try {
         // Make your API call here
-        const response = await axios.get(
-          "https://tracksify.azurewebsites.net/tracksify/user",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json", // Adjust the content type as needed
-            },
-          }
+        const response = await axiosConfig.get(
+          "user"
         );
 
-        const getAllProjects = await axios.get(
-          "https://tracksify.azurewebsites.net/tracksify/project",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json", // Adjust the content type as needed
-            },
-          }
+        const getAllProjects = await axiosConfig.get(
+          "project"
         );
+
+        console.log(response.data)
 
         setAllProjects(getAllProjects.data);
         setAllUsers(response.data);
@@ -261,11 +250,34 @@ const Page = () => {
                 </div>
               </Modal>
             </Fragment>
-            <div className="bg-white h-half w-3/4 mx-auto">
-              <div className="grid grid-cols-4 gap-2 p-2">
+            <div className="bg-white h-half w-3/4 mx-auto ">
+            <div className="bg-white h-half ">
+              <h1 className="text-text_tertiary font-bold pt-5 pl-10  pb-5 ">Project LineUp</h1>
+  <table className="table-auto w-full border-none pt-10">
+    <thead>
+      <tr>
+        <th className=" px-4 py-2  border-none">Project Name</th>
+        <th className=" px-4  py-2">Start Date</th>
+        <th className=" px-4  py-2">Due Date</th>
+        <th className=" px-4  py-2">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td className=" px-4 py-2 text-center  "></td>
+        <td className=" px-4 py-2 text-center"></td>
+        <td className=" px-4 py-2 text-center"></td>
+        <td className=" px-4 py-2 text-center"></td>
+      </tr>
+      {/* Add more <tr> elements here for more rows */}
+    </tbody>
+  </table>
+</div>
+
+              {/*<div className="grid grid-cols-4 gap-2 p-2">
                 <div className="col-span-1">
                   <h3 className="text-text_tertiary font-bold text-sm p-5">
-                    Project Name
+                    Project 
                   </h3>
                 </div>
                 <div className="col-span-1">
@@ -288,7 +300,7 @@ const Page = () => {
                     Status
                   </h3>
                 </div>
-              </div>
+                  </div>*/}
 
               {allProjects.map(
                 (projectDetail: ProjectDetailsDataDTo, index) => (
