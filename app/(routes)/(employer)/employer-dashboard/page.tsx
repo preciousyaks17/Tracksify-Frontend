@@ -18,7 +18,7 @@ export interface ProjectDetailsDataDTo {
   projectDescription: string;
   startDate: string;
   dueDate: string;
-  status: string;
+  status: Status;
   projectAssignees: string[];
 }
 
@@ -43,8 +43,9 @@ const ProjectDetailsData = [
 const Page = () => {
   const [showModal, setShowModal] = useState(false);
   const [projectName, setProjectName] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [dueDate, setDueDate] = useState("");
+  const [startDate, setStartDate] = useState<Date>();
+  const [status, setStatus] = useState("");
+  const [dueDate, setDueDate] = useState<Date>();
   const [projectAssignees, setProjectAssignees] = useState<string[]>([]);
   const [projectDescription, setProjectDescription] = useState("");
   const [allUsers, setAllUsers] = useState([]);
@@ -55,15 +56,11 @@ const Page = () => {
     const fetchData = async () => {
       try {
         // Make your API call here
-        const response = await axiosConfig.get(
-          "user"
-        );
+        const response = await axiosConfig.get("user");
 
-        const getAllProjects = await axiosConfig.get(
-          "project"
-        );
+        const getAllProjects = await axiosConfig.get("project");
 
-        console.log(response.data)
+        console.log("debug", response.data);
 
         setAllProjects(getAllProjects.data);
         setAllUsers(response.data);
@@ -78,9 +75,17 @@ const Page = () => {
 
   // Function to handle project creation
   const createProject = async () => {
+    console.log({
+      projectName: projectName,
+      startDate: startDate,
+      dueDate: dueDate,
+      projectDescription: projectDescription,
+      projectAssignees: projectAssignees,
+      // Add other data you want to send to the server
+    });
     try {
       // Make a POST request to your backend endpoint with the project name
-      const response = await axios.post(
+      const response = await axiosConfig.post(
         "https://tracksify.azurewebsites.net/tracksify/project",
         {
           projectName: projectName,
@@ -98,6 +103,7 @@ const Page = () => {
       // Optionally, close the modal or reset the form
       setShowModal(false);
       setProjectName("");
+      window.location.reload();
     } catch (error) {
       // Handle errors (e.g., show an error message)
       console.error("Error creating project:", error);
@@ -144,7 +150,9 @@ const Page = () => {
                   <div className="w-full">
                     <DatePicker
                       label={"Start Time"}
-                      setDate={() => setDueDate}
+                      setDate={(val) => {
+                        setStartDate(val);
+                      }}
                       icon={
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -166,7 +174,9 @@ const Page = () => {
                   <div className="w-full">
                     <DatePicker
                       label={"End Time"}
-                      setDate={() => setDueDate}
+                      setDate={(val: Date) => {
+                        setDueDate(val);
+                      }}
                       icon={
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -251,28 +261,30 @@ const Page = () => {
               </Modal>
             </Fragment>
             <div className="bg-white h-half w-3/4 mx-auto ">
-            <div className="bg-white h-half ">
-              <h1 className="text-text_tertiary font-bold pt-5 pl-10  pb-5 ">Project LineUp</h1>
-  <table className="table-auto w-full border-none pt-10">
-    <thead>
-      <tr>
-        <th className=" px-4 py-2  border-none">Project Name</th>
-        <th className=" px-4  py-2">Start Date</th>
-        <th className=" px-4  py-2">Due Date</th>
-        <th className=" px-4  py-2">Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td className=" px-4 py-2 text-center  "></td>
-        <td className=" px-4 py-2 text-center"></td>
-        <td className=" px-4 py-2 text-center"></td>
-        <td className=" px-4 py-2 text-center"></td>
-      </tr>
-      {/* Add more <tr> elements here for more rows */}
-    </tbody>
-  </table>
-</div>
+              <div className="bg-white h-half ">
+                <h1 className="text-text_tertiary font-bold pt-5 pl-10  pb-5 ">
+                  Project LineUp
+                </h1>
+                <table className="table-auto w-full border-none pt-10">
+                  <thead>
+                    <tr>
+                      <th className=" px-4 py-2  border-none">Project Name</th>
+                      <th className=" px-4  py-2">Start Date</th>
+                      <th className=" px-4  py-2">Due Date</th>
+                      <th className=" px-4  py-2">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className=" px-4 py-2 text-center  "></td>
+                      <td className=" px-4 py-2 text-center"></td>
+                      <td className=" px-4 py-2 text-center"></td>
+                      <td className=" px-4 py-2 text-center"></td>
+                    </tr>
+                    {/* Add more <tr> elements here for more rows */}
+                  </tbody>
+                </table>
+              </div>
 
               {/*<div className="grid grid-cols-4 gap-2 p-2">
                 <div className="col-span-1">
@@ -325,6 +337,9 @@ const Page = () => {
                       </p>
                     </div>
                     <div className="col-span-1">
+                      <p className="text-red-600">
+                        {/* {projectDetail.status} */}
+                      </p>
                       {/*
                     <select
                      

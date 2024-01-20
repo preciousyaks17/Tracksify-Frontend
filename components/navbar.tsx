@@ -2,6 +2,8 @@
 import Link from "next/link";
 import Logo from "./logo";
 import React, { useEffect, useState } from "react";
+
+
 import { set } from "zod";
 
 const NavLinks = {
@@ -61,9 +63,11 @@ const Navbar = () => {
             FO
           </button>
           <select className="ml-2 w-4 outline-none ">
-            <option value="option1" className=" ">
+            
+            <option value="option1" className=" p-2">
               Log out{" "}
             </option>
+          
           </select>
         </div>
       </div>
