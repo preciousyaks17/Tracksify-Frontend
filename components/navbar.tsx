@@ -1,7 +1,8 @@
 "use client"
 import Link from "next/link";
 import Logo from "./logo";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { set } from "zod";
 
 const NavLinks = {
   employer: [
@@ -28,12 +29,16 @@ const NavLinks = {
       link: "/employee-projects",
     },
   ],
-};
+}
 
-let user = JSON.parse(localStorage.getItem("user")!);
-const navLinks =
-  user.userType === 0 ? NavLinks.employer : NavLinks.employee;
 const Navbar = () => {
+  let [navLinks, setNavlinks] = useState<{ name: string; link: string }[]> ([]);
+  
+  useEffect(() => {
+    let user = JSON.parse(localStorage.getItem("user")!);
+    setNavlinks(user.userType === 0 ? NavLinks.employer : NavLinks.employee)
+  ;
+  }, []);
   return (
     <div className="flex items-center justify-between p-4 bg-white">
       <div className="p-4  ">
