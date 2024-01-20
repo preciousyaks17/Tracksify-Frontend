@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 import Logo from "./logo";
 import React from "react";
@@ -24,14 +25,14 @@ const NavLinks = {
     },
     {
       name: "Project",
-      link: "/employee-project",
+      link: "/employee-projects",
     },
   ],
 };
 
-let userRole = "employer";
+let user = JSON.parse(localStorage.getItem("user")!);
 const navLinks =
-  userRole === "employer" ? NavLinks.employer : NavLinks.employee;
+  user.userType === 0 ? NavLinks.employer : NavLinks.employee;
 const Navbar = () => {
   return (
     <div className="flex items-center justify-between p-4 bg-white">

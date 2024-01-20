@@ -55,7 +55,7 @@ const[error, setError]= useState("");
       
 //console.log( 'this is userType' , userDetails);
       localStorage.setItem('token', userDetails.token);
-      localStorage.setItem('user', userDetails.user);
+      localStorage.setItem('user', JSON.stringify(userDetails.user) );
 
       if (userDetails.user.userType === 0) {
         router.push("/employer-dashboard");
