@@ -106,7 +106,7 @@ const Page = () => {
       // Handle the response from the server (you can log it or show a success message)
       console.log("Project created successfully:", response.data);
 
-      // Optionally, close the modal or reset the form
+      // Optionally,to close the modal or reset the form
       setShowModal(false);
       setProjectName("");
     } catch (error) {
