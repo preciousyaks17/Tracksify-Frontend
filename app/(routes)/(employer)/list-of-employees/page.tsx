@@ -1,4 +1,5 @@
 "use client";
+// Importing necessary components and utilities
 import { Icon } from "@/components/icon";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/modal";
@@ -10,6 +11,7 @@ import useUser from "@/hooks/useUser";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import {
   Form,
   FormControl,
@@ -20,6 +22,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
+// Defining the validation schema for the form
 const formSchema = z.object({
   firstName: z.string().min(2, {
     message: "First name must be at least 2 characters.",
@@ -27,43 +30,56 @@ const formSchema = z.object({
   lastName: z.string().min(2, {
     message: "Last name must be at least 2 characters.",
   }),
-  email: z.string().min(2, {
-    message: "Email must be at least 2 characters.",
+  email: z.string().email({
+    message: "Please enter a valid email address.",
   }),
-  password: z.string().min(2, {
-    message: "Email must be at least 2 characters.",
+  password: z.string().min(8, {
+    message: "Password must be at least 8 characters.",
   }),
   role: z.string().min(2, {
     message: "Role must be at least 2 characters.",
   }),
 });
 
+// React component for managing employee-related functionality
 const Employee = () => {
+  // Initializing form state using react-hook-form and zodResolver
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       firstName: "",
     },
   });
+
+  // State for controlling the visibility of the modal
   const [showModal, setShowModal] = React.useState(false);
+  // Next.js router instance
   const router = useRouter();
+  // Custom hook for handling user-related functionality
   const { getUserQuery, createUserMutation } = useUser();
+  // Extracting user data from the query resul
   const users = getUserQuery?.data;
 
   console.log(users);
 
+  // Form submission handler
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    // console.log(values);
+    /// Perform actions with the form values
     createUserMutation.mutate(values);
+    setShowModal(false);
   }
 
+  // Close modal handler
+  const handleCloseModal = () => {
+    form.reset(); // Reset form values
+    setShowModal(false);
+  };
+  // JSX structure for the Employee component
   return (
     <Fragment>
-      <div className="bg-background_foreground h-screen">
+      <div className="bg-background_foreground min-h-screen ">
         <div>
-          <div className="flex justify-end pr-48 pb-4 pt-10 ">
+          <div className="flex justify-end md:pr-8 lg:pr-16  ">
             {/* <button
               className="bg-text_secondary text-white hover:text-text_secondary hover:bg-color_hover rounded px-4 py-2 mt-4"
               onClick={(e) => {
@@ -74,15 +90,16 @@ const Employee = () => {
               Employees
             </button> */}
             <button
-              className="border rounded-md hover:text-text_tertiary text-center text-text_secondary px-4 py-2"
+              className="bg-text_secondary text-white hover:text-text_secondary hover:bg-color_hover rounded px-4 py-2 mt-9 "
               onClick={() => setShowModal(true)}
             >
               Add Employee
             </button>
           </div>
+          {/* Modal for adding employees */}
           <div className="flex items-center justify-center">
             <div className=" w-3/4 h-full">
-              <h1 className="font-bold pt-4 pl-5 pb-4"></h1>
+              <h1 className="w-full md:w-3/4 lg:w-1/2"></h1>
               {/* <div className="flex justify-center">
                 <Icon />
               </div> */}
@@ -98,11 +115,10 @@ const Employee = () => {
                     Add Employee
                   </button>
                 </div> */}
-                <Modal
-                  isVisible={showModal}
-                  onClose={() => setShowModal(false)}
-                >
-                  <div className="p-6  w-full">
+                {/* Modal content */}
+                <Modal isVisible={showModal} onClose={handleCloseModal}>
+                  {/* Form for adding employees */}
+                  <div className="p-6  w-full max-w-md mx-auto">
                     <h1 className="text-xl font-semibold mb-5 ">
                       Add Employee
                     </h1>
@@ -111,7 +127,8 @@ const Employee = () => {
                         onSubmit={form.handleSubmit(onSubmit)}
                         className="w-full "
                       >
-                        <div className="flex justify-between gap-4">
+                        {/* Form fields for employee details */}
+                        <div className="flex flex-col md:flex-row md:gap-4">
                           <div className="w-full ">
                             <FormField
                               control={form.control}
@@ -122,7 +139,7 @@ const Employee = () => {
                                   <FormControl>
                                     <input
                                       className="border outline-none rounded-md w-full p-2 m-2"
-                                      placeholder="shadcn"
+                                      placeholder="Enter First name"
                                       {...field}
                                     />
                                   </FormControl>
@@ -141,7 +158,7 @@ const Employee = () => {
                                   <FormControl>
                                     <input
                                       className="border outline-none rounded-md w-full p-2 m-2"
-                                      placeholder="shadcn"
+                                      placeholder="Enter Last Name"
                                       {...field}
                                     />
                                   </FormControl>
@@ -162,7 +179,7 @@ const Employee = () => {
                                 <FormControl>
                                   <input
                                     className="border outline-none rounded-md w-full p-2 m-2"
-                                    placeholder="shadcn"
+                                    placeholder="Enter Last Name"
                                     {...field}
                                   />
                                 </FormControl>
@@ -182,7 +199,7 @@ const Employee = () => {
                                 <FormControl>
                                   <input
                                     className="border outline-none rounded-md w-full p-2 m-2"
-                                    placeholder="shadcn"
+                                    placeholder="Enter Password"
                                     {...field}
                                   />
                                 </FormControl>
@@ -201,7 +218,7 @@ const Employee = () => {
                                 <FormControl>
                                   <input
                                     className="border outline-none rounded-md w-full p-2 m-2"
-                                    placeholder="shadcn"
+                                    placeholder="Enter Role"
                                     {...field}
                                   />
                                 </FormControl>
@@ -210,16 +227,20 @@ const Employee = () => {
                             )}
                           />
                         </div>
+                        {/* Submit and cancel buttons */}
                         <div className="flex justify-center items-center mt-5">
                           <button
                             type="submit"
-                            className="bg-text_secondary text-white hover:text-text_tertiary hover:bg-color_hover outline-none rounded px-4 py-2 mt-4 w-full"
+                            className="bg-text_secondary text-white hover:text-text_tertiary hover:bg-color_hover rounded-md px-4 py-2 mt-4 w-full"
                           >
                             Add Employee
                           </button>
                         </div>
                         <div className="flex justify-center items-center mt-5">
-                          <button className="border  outline-none rounded hover:text-text_tertiary  text-text_secondary bg-gray-200 px-4 py-2 mt-4 w-full">
+                          <button
+                            className="border  outline-none rounded hover:text-text_tertiary  text-text_secondary bg-gray-200 px-4 py-2 mt-4 w-full"
+                            onClick={handleCloseModal}
+                          >
                             Cancel
                           </button>
                         </div>
@@ -231,35 +252,45 @@ const Employee = () => {
             </div>
           </div>
 
-          <div className="bg-color_hover h-screen flex justify-center ">
-            <div className="bg-white mt-20 w-full mb-0 md:w-3/4 overflow-y-auto">
+          {/* Employee list section */}
+          <div className=" h-screen flex justify-center mt-[-1]">
+            <div className="bg-white mt-10 w-full md:w-3/4 lg:w-1/2 overflow-y-auto ">
+              {/* Title */}
               <h1 className=" font-bold pl-5 mt-5">Employees</h1>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-8 p-2">
-                <h3 className=" text-text_tertiary font-bold  text-sm  overflow-auto p-5">
-                  Name
-                </h3>
-                <h3 className="text-text_tertiary font-bold text-sm overflow-auto p-5">
-                  Email Address
-                </h3>
-                {/* <h3 className=" text-text_tertiary font-bold text-sm overflow-auto p-5">
-            Date Added
-          </h3> */}
 
-                <h3 className="text-text_tertiary font-bold text-sm overflow-auto p-5">
-                  Role
-                </h3>
+              {/* Table header */}
+              <div className="grid grid-cols-3 gap-4 p-2 sticky top-0">
+                <div className="flex-1">
+                  <h3 className=" text-text_tertiary font-bold text-sm p-5">
+                    Name
+                  </h3>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-text_tertiary font-bold text-sm  p-5">
+                    Email Address
+                  </h3>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-text_tertiary font-bold text-sm  p-5">
+                    Role
+                  </h3>
+                </div>
               </div>
-              {/* GRID 1 */}
-              {users?.map((user) => (
-                <div key={user.userId} className="grid grid-cols-4 gap-2 p-2">
-                  {/* <p className="p-5">{users?.firstName}</p> */}
-                  {/* <p className="p-5">ba@gmail.com</p>
-          <p className="p-5">12/12/2021</p>
-          <p className="p-5">Developer </p> */}
 
-                  <p className="p-5">{`${user.firstName} ${user.lastName}`}</p>
-                  <p className="p-5 truncate">{user.email}</p>
-                  <p className="p-5">{user.role}</p>
+              {/* Displaying user data in a table */}
+              {users?.map((user) => (
+                <div key={user.userId} className="grid grid-cols-3 gap-4 p-2">
+                  <div className="flex-1">
+                    <Link href={`/employee/${user.userId}/project-updates`}>
+                      <p className="p-5">{`${user.firstName} ${user.lastName}`}</p>
+                    </Link>
+                  </div>
+                  <div className="flex-1 overflow-auto">
+                    <p className="p-5">{user.email}</p>
+                  </div>
+                  <div className="flex-1">
+                    <p className="p-5">{user.role}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -270,4 +301,5 @@ const Employee = () => {
   );
 };
 
+// Exporting the Employee component as the default export
 export default Employee;
