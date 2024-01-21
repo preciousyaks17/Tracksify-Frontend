@@ -64,7 +64,7 @@ interface DeleteProjectResponse {
 }
 
 class ProjectService {
-  static async getProject(): Promise<AxiosResponse<GetProjectResponse>> {
+  static async getProject(): Promise<AxiosResponse<GetProjectResponse[]>> {
     return await axiosConfig.get("project");
   }
 

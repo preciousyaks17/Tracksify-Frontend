@@ -15,7 +15,7 @@ const useProject = () => {
         return response?.data;
       } catch (error: any) {
         console.log(error);
-        // toast.error(axiosResponseMessage(error));
+        toast.error("Something went wrong!");
       }
     },
   });
@@ -24,11 +24,13 @@ const useProject = () => {
     queryKey: ["getProjectUpdate"],
     queryFn: async () => {
       try {
-        const response = ProjectService.getProject();
+        const response = await ProjectService.getProject();
         console.log(response);
         return response;
       } catch (error: any) {
         console.log(error);
+        toast.error(`Something went wrong: ${error.message}`);
+        throw error;
       }
     },
   });

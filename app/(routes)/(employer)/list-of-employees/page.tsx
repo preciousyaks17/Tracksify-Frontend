@@ -281,7 +281,9 @@ const Employee = () => {
               {users?.map((user) => (
                 <div key={user.userId} className="grid grid-cols-3 gap-4 p-2">
                   <div className="flex-1">
-                    <Link href={`/employee/${user.userId}/project-updates`}>
+                    <Link
+                      href={`/employer-dashboard/employer-project/1/list-of-projects`}
+                    >
                       <p className="p-5">{`${user.firstName} ${user.lastName}`}</p>
                     </Link>
                   </div>
