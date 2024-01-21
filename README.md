@@ -17,4 +17,6 @@ Work Hour Tracking:
 Employees log their work hours against assigned projects.
 
 Dashboard:
-Monitor project progress, completed tasks, and overall work hours on the dashboard.
+Monitor project progress, completed tasks, and overall work hours on the dashboard!
+
+![tracksify page](https://github.com/preciousyaks17/Tracksify-Frontend/assets/89774835/5f66ee0f-b5ca-4bc2-b91d-bc0a1b6d86e7)
