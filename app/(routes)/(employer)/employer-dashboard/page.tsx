@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 import { Fragment, useEffect, useState } from "react";
 import { DatePicker } from "@/components/datepicker";
 import MultiSelectDropdown from "@/components/drop-down-menu";
-
+import getStatus from "@/utils/getStatus";
+import formatDate from "@/utils/formatDate";
 import React from "react";
 import router from "next/router";
 import axios from "axios";
@@ -116,7 +117,7 @@ const Page = () => {
         <div className="bg-color_hover h-screen ">
           <div className="p-4 pl-20">
             <h1 className="text-2xl text-text_tertiary pt-8 pl-40 font-bold">
-              Good Morning ,
+              Good Morning{" "}
             </h1>
             <Fragment>
               <div className="flex justify-end pr-44 pb-4">
@@ -140,11 +141,6 @@ const Page = () => {
                   onChange={(e) => setProjectName(e.target.value)}
                 />
 
-                {/* <input
-                  type="text"
-                  className="border p-2 mb-6  my-2  rounded-md focus:outline-none focus:border-blue-500 w-full"
-                  placeholder="Email Address, Separated by comma"
-  /> */}
                 <div className="flex space-x-5">
                   {" "}
                   <div className="w-full">
@@ -176,6 +172,7 @@ const Page = () => {
                       label={"End Time"}
                       setDate={(val: Date) => {
                         setDueDate(val);
+                        formatDate(val);
                       }}
                       icon={
                         <svg
@@ -260,116 +257,64 @@ const Page = () => {
                 </div>
               </Modal>
             </Fragment>
-            <div className="bg-white h-half w-3/4 mx-auto ">
-              <div className="bg-white h-half ">
-                <h1 className="text-text_tertiary font-bold pt-5 pl-10  pb-5 ">
-                  Project LineUp
+            <div className="bg-white   w-3/4 mx-auto p-5">
+              <div>
+                <h1 className="text-text_secondary font-bold text-lg   pl-2 mt-1">
+                  Deadlines
                 </h1>
-                <table className="table-auto w-full border-none pt-10">
-                  <thead>
-                    <tr>
-                      <th className=" px-4 py-2  border-none">Project Name</th>
-                      <th className=" px-4  py-2">Start Date</th>
-                      <th className=" px-4  py-2">Due Date</th>
-                      <th className=" px-4  py-2">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className=" px-4 py-2 text-center  "></td>
-                      <td className=" px-4 py-2 text-center"></td>
-                      <td className=" px-4 py-2 text-center"></td>
-                      <td className=" px-4 py-2 text-center"></td>
-                    </tr>
-                    {/* Add more <tr> elements here for more rows */}
-                  </tbody>
-                </table>
               </div>
 
-              {/*<div className="grid grid-cols-4 gap-2 p-2">
-                <div className="col-span-1">
-                  <h3 className="text-text_tertiary font-bold text-sm p-5">
-                    Project 
-                  </h3>
-                </div>
-                <div className="col-span-1">
-                  <h1 className="text-text_tertiary font-bold text-lg pt-4 pl-6 mt-4">
-                    Due Project
-                  </h1>
-                </div>
-                <div className="col-span-1">
-                  <h3 className="text-text_tertiary font-bold text-sm p-5">
-                    Start Date
-                  </h3>
-                </div>
-                <div className="col-span-1">
-                  <h3 className="text-text_tertiary font-bold text-sm p-5">
-                    Due Date
-                  </h3>
-                </div>
-                <div className="col-span-1">
-                  <h3 className="text-text_tertiary font-bold text-sm p-5">
-                    Status
-                  </h3>
-                </div>
-                  </div>*/}
-
-              {allProjects.map(
-                (projectDetail: ProjectDetailsDataDTo, index) => (
-                  <div key={index} className="grid grid-cols-4 gap-2 p-2">
-                    <div className="col-span-1">
+              <div className="grid grid-cols-4 text-center font-bold gap-2   p-2">
+                <h1 className="col-span-1 ">Project Name</h1>
+                <h1 className="col-span-1 ">Start Date</h1>
+                <h1 className="col-span-1 ">Due Date</h1>
+                <h1 className="col-span-1 ">Status</h1>
+              </div>
+              {allProjects
+                .slice(0, 5)
+                .map((projectDetail: ProjectDetailsDataDTo, index) => (
+                  <div
+                    key={index}
+                    className="grid  hover:bg-gray-200  grid-cols-4 gap-2 p-2"
+                  >
+                    <div className="col-span-1 ">
                       <Link
                         href={`/employer-dashboard/employer-project/1/project-update`}
                       >
-                        <p className="hover:bg-color_hover p-5 cursor-pointer">
+                        <p className=" text-center  cursor-pointer">
                           {projectDetail.projectName}
                         </p>
                       </Link>
                     </div>
                     <div className="col-span-1">
-                      <p className="hover:bg-color_hover p-5">
-                        {projectDetail.startDate}
-                      </p>
+                      <Link
+                        href={`/employer-dashboard/employer-project/1/project-update`}
+                      >
+                        <p className="text-center p-2">
+                          {formatDate(new Date(projectDetail.startDate))}
+                        </p>
+                      </Link>
                     </div>
-                    <div className="col-span-1">
-                      <p className="hover:bg-color_hover p-5">
-                        {projectDetail.dueDate}
-                      </p>
+                    <div className=" text-center col-span-1">
+                      <Link
+                        href={`/employer-dashboard/employer-project/1/project-update`}
+                      >
+                        <p className=" p-2 ">
+                          {formatDate(new Date(projectDetail.dueDate))}
+                        </p>
+                      </Link>
                     </div>
-                    <div className="col-span-1">
-                      <p className="text-red-600">
-                        {/* {projectDetail.status} */}
-                      </p>
-                      {/*
-                    <select
-                     
-                      className="p-5"
-                      onChange={(e) => console.log(e.target.value)}
-                    >
-                      {Object.entries(projectDetail.status).map(
-                        ([key, value]) => (
-                          <option
-                            key={key}
-                            value={key}
-                            className={`${
-                              projectDetail.status === "Pending"
-                                ? "text-red-500"
-                                : projectDetail.status === "In progress"
-                                ? "text-blue-500"
-                                : projectDetail.status === "Complete"
-                                ? "text-green-500"
-                                : ""
-                            }`}
-                          >
-                            {projectDetail.status}
-                          </option>
-                        )
-                      )}
-                          </select>  */}
+                    <div className="col-span-1 text-center">
+                      <Link
+                        href={`/employer-dashboard/employer-project/1/project-update`}
+                      >
+                        <p className="p-2 ">
+                          {getStatus(Number(projectDetail.status))}
+                        </p>
+                      </Link>
                     </div>
                   </div>
-                )
-              )}
+                ))}
             </div>
           </div>
         </div>
