@@ -1,7 +1,8 @@
 import axiosConfig from "@/config/axios";
 import { AxiosResponse } from "axios";
 
-interface GetUserResponse {
+
+export interface GetUserResponse {
   userId: string;
   firstName: string;
   lastName: string;
@@ -22,7 +23,7 @@ interface Project {
   projectAssignees: string[];
 }
 
-interface CreateUserRequest {
+export interface CreateUserRequest {
   firstName: string;
   lastName: string;
   email: string;
@@ -76,7 +77,7 @@ interface DeleteUserResponse {
 }
 
 class UserService {
-    static async getUser(): Promise<AxiosResponse<GetUserResponse>> {
+    static async getUser(): Promise<AxiosResponse<GetUserResponse[]>> {
         return await axiosConfig.get("user");
     }
 

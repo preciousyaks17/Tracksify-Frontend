@@ -5,10 +5,10 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { apiClient } from "@/helpers/apiclient";
 
 import { toast } from "sonner";
 import * as z from "zod";
+import axiosConfig from "@/config/axios";
 
 
 const loginFornSchema = z.object({
@@ -40,19 +40,22 @@ const LoginPage = () => {
 
   }
 
+
   const [loading, setLoading] = useState(false)
 const[error, setError]= useState("");
   const onSubmit: SubmitHandler<ValidationSchema> = async (data) => {
     try {
       setLoading(true)
-      const userDetails = await apiClient.post('tracksify/Auth/Login', {
+      const userDetails = await axiosConfig.post('Auth/Login', {
         email: data.email,
         password: data.password
       }).then(res => res.data);
+
+      console.log({userDetails});
       
 //console.log( 'this is userType' , userDetails);
       localStorage.setItem('token', userDetails.token);
-      localStorage.setItem('user', userDetails.user);
+      localStorage.setItem('user', JSON.stringify(userDetails.user) );
 
       if (userDetails.user.userType === 0) {
         toast.success("Login Successfully");

@@ -20,7 +20,6 @@ const product_sans = localFont({
   variable: "--font-product-sans",
 });
 
-
 export const metadata: Metadata = {
   title: "Tracksify",
   description:
@@ -32,13 +31,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
-  
   return (
     <html lang="en" className={`${product_sans.variable}`}>
       <body className={work_sans.className}>
-          {children}
-          <Toaster />
+        {children}
+        <Toaster position="top-center" />
       </body>
     </html>
   );
