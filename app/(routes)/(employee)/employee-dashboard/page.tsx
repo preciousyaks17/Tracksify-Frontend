@@ -2,15 +2,23 @@
 import Link from "next/link";
 import Logo from "@/components/logo";
 import { Icon2 } from "@/components/icon2";
-import React, { useState } from "react";
-const page = () => {
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import axiosConfig from "@/config/axios";
+const Page = () => {
+  let [user, setUser] = useState<any>();
+
+  useEffect(() => {
+    let user = JSON.parse(localStorage.getItem("user")!);
+    setUser(user);
+  }, []);
   return (
     <div className="">
       <main className="">
         <div className="bg-color_hover h-screen ">
           <div className="p-10 pl-20">
             <h1 className="text-2xl text-text_tertiary pt-8 pl-40 font-bold">
-              Good Morning ,
+              Good Morning, {user?.firstName || ""}
             </h1>
 
             <div className="bg-white h-half w-4/5 mx-auto  ">
@@ -39,7 +47,7 @@ const page = () => {
                 <p className="  p-5">Dec 1, 2023</p>
                 <p className="  p-5">Dec 31, 2023</p>
                 <p className="  p-5">Pending</p>
-                
+
                 {/*{
                   <select
                     className=""
@@ -74,4 +82,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
