@@ -5,7 +5,7 @@
 This guide introduces a user-friendly web app designed to make project management seamless and efficient.
 Assigned tasks/projects from the Admin/employer, Allows User/employee receive a designated space to update project progress, ensuring transparency and accountability. 
 
-**Installation**
+**Installation:**
 Install Dependencies: npm install 
 
 Configure Environment Variables:
