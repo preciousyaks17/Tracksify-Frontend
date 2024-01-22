@@ -18,9 +18,8 @@ API Documentation: [Tracksify](https://tracksify.azurewebsites.net/swagger/index
 - [Features](#features)
 - [Technological Stack](#technological-stack)
 - [Getting Started](#getting-started)
-- [Deployment](#deployment)
 - [Contributors](#contributors)
-- [License](#license)
+
 
 <p align="right"><a href="#readme-top">back to top</a></p>
 
