@@ -1,5 +1,4 @@
-**Introduction**
-Welcome to TRACKSIFY, your ultimate companion in project management and productivity optimization. 
+**Introduction:** Welcome to TRACKSIFY, your ultimate companion in project management and productivity optimization. 
 
 
 **Getting Started**
@@ -7,12 +6,6 @@ This guide introduces a user-friendly web app designed to make project managemen
 Assigned tasks/projects from the Admin/employer, Allows User/employee receive a designated space to update project progress, ensuring transparency and accountability. 
 
 **Installation**
-
-Restore NuGet Packages: .NET restore
-Create a MySQL database.
-Update the connection string in the appsettings.json file.
-Apply migrations and run the Api
-
 Install Dependencies: npm install 
 
 Configure Environment Variables:
@@ -55,18 +48,4 @@ Admin/Employer Dashboard: Admins/employers have the authority to create, modify,
 Project Creation: Admins can create and set up new projects, defining project goals, milestones, and deadlines.
 Access Control: Admins can control access levels, granting permissions to users based on their roles within the organization.
 
-**License**
-1. Usage Restrictions:
-User shall not sublicense, sell, lease, or otherwise transfer the Software to any third party.
-User shall not modify, reverse engineer, decompile, or disassemble the Software or attempt to derive the source code.
-
-2. User Responsibilities:
-User is responsible for maintaining the confidentiality and security of login credentials.
-User agrees to use the Software in compliance with applicable laws and regulations.
-
-3. Warranty and Disclaimer: The Software is provided "as is" without warranty of any kind, either expressed or implied, including but not limited to the implied warranties of merchantability and fitness for a particular purpose.
-
-4. Governing Law: This Agreement shall be governed by and construed in accordance with the laws of nigeria.
-
-5. Entire Agreement: This Agreement constitutes the entire understanding between the parties and supersedes all prior agreements, whether oral or written.
 
