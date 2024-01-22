@@ -287,7 +287,7 @@ const Employee = () => {
                   <div className="flex-1">
                     <Link
                       href={`/employer-dashboard/employer-project/1/list-of-projects`}
-                     // href={`/employer-dashboard/employer-project/${user.userId}/list-of-projects`}
+                      // href={`/employer-dashboard/employer-project/${user.userId}/list-of-projects`}
                     >
                       <p className="p-5">{`${user.firstName} ${user.lastName}`}</p>
                     </Link>
