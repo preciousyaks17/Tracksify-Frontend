@@ -23,7 +23,7 @@ Customize components, pages, and styles based on your requirements.
 
 Checkout TypeScript files.
 
-Integrate Axios for making HTTP requests. Review the Axios documentation for best practices and usage.
+Integrate Axios for making HTTP requests.
 
 **Usage**
 
