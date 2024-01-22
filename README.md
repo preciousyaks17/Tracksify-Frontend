@@ -61,17 +61,12 @@ User shall not sublicense, sell, lease, or otherwise transfer the Software to an
 User shall not modify, reverse engineer, decompile, or disassemble the Software or attempt to derive the source code.
 
 2. User Responsibilities:
-
 User is responsible for maintaining the confidentiality and security of login credentials.
 User agrees to use the Software in compliance with applicable laws and regulations.
 
-3. Warranty and Disclaimer:
+3. Warranty and Disclaimer: The Software is provided "as is" without warranty of any kind, either expressed or implied, including but not limited to the implied warranties of merchantability and fitness for a particular purpose.
 
-The Software is provided "as is" without warranty of any kind, either expressed or implied, including but not limited to the implied warranties of merchantability and fitness for a particular purpose.
+4. Governing Law: This Agreement shall be governed by and construed in accordance with the laws of nigeria.
 
-4. Governing Law:
-This Agreement shall be governed by and construed in accordance with the laws of nigeria.
-
-5. Entire Agreement:
-This Agreement constitutes the entire understanding between the parties and supersedes all prior agreements, whether oral or written.
+5. Entire Agreement: This Agreement constitutes the entire understanding between the parties and supersedes all prior agreements, whether oral or written.
 
