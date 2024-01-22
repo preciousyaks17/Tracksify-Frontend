@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Navbar from "@/components/navbar";
 import axios from "axios";
 import axiosConfig from "@/config/axios";
-
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import getStatus from "@/utils/getStatus";
 import formatDate from "@/utils/formatDate";
@@ -27,44 +27,58 @@ const Projects = () => {
   console.log(allProjects);
 
   return (
-    <div className=" ">
-      <div className="bg-background_foreground min-h-screen mt-[-44] pt-20  ">
-        <div className="    w-1/2 mx-auto ">
-          <div className="bg-white mt-1 py-5  ">
-            <h1 className="text-text_tertiary font-bold font-product-sans pt-3  pl-10 pb-5">
-              My projects
-            </h1>
-            <table className="table-auto w-full border-none pt-10 px-4 py-2 m-4">
-              <thead>
-                <tr>
-                  <th className="  ">Project Name</th>
-                  <th className=" ">Start Date</th>
-                  <th className="">Due Date</th>
-                  <th className=" ">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {allProjects.map((project: any, index: number) => (
-                  <tr key={index} className="hover:bg-gray-200">
-                    <td className="px-4 py-2 text-center p-2  m-10">
-                      {project.projectName}
-                    </td>
-                    <td className="px-4 py-2 text-center p-2 m-10">
-                      {formatDate(new Date(project.startDate))}
-                    </td>
-                    <td className="px-4 py-2 text-center p-2 m-10">
-                      {formatDate(new Date(project.dueDate))}
-                    </td>
-                    <td className="px-4 py-2 text-center  p-2 m-10">
-                      {getStatus(project.projectStatus)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+    <div className="bg-white   w-3/4 mx-auto p-5">
+      <div>
+        <h1 className="text-text_secondary font-bold text-lg   pl-2 mt-1">
+          My Projects
+        </h1>
+      </div>
+
+      <div className="grid grid-cols-4 text-center font-bold gap-2   p-2">
+        <h1 className="col-span-1 ">Project Name</h1>
+        <h1 className="col-span-1 ">Start Date</h1>
+        <h1 className="col-span-1 ">Due Date</h1>
+        <h1 className="col-span-1 ">Status</h1>
+      </div>
+      {allProjects.map((project: any, index: number) => (
+        <div
+          key={index}
+          className="grid  hover:bg-gray-200  grid-cols-4 gap-2 p-2"
+        >
+          <div className="col-span-1 ">
+            <Link
+              href={`/employer-dashboard/employer-project/1/project-update`}
+            >
+              <p className=" text-center  cursor-pointer">
+                {project.projectName}
+              </p>
+            </Link>
+          </div>
+          <div className="col-span-1">
+            <Link
+              href={`/employer-dashboard/employer-project/1/project-update`}
+            >
+              <p className="text-center p-2">
+                {formatDate(new Date(project.startDate))}
+              </p>
+            </Link>
+          </div>
+          <div className=" text-center col-span-1">
+            <Link
+              href={`/employer-dashboard/employer-project/1/project-update`}
+            >
+              <p className=" p-2 ">{formatDate(new Date(project.dueDate))}</p>
+            </Link>
+          </div>
+          <div className="col-span-1 text-center">
+            <Link
+              href={`/employer-dashboard/employer-project/1/project-update`}
+            >
+              <p className="p-2 ">{getStatus(project.projectStatus)}</p>
+            </Link>
           </div>
         </div>
-      </div>
+      ))}
     </div>
   );
 };
