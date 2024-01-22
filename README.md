@@ -1,51 +1,105 @@
-**Introduction:** Welcome to TRACKSIFY, your ultimate companion in project management and productivity optimization. 
+<!-- Back to Top Navigation Anchor -->
+<a name="readme-top"></a>
+
+---
+
+# TRACKSIFY - Employee Time Tracking System
+
+TRACKSIFY is a modern Employee Time Tracking System designed to streamline project management, enhance transparency, and optimize resource utilization within organizations. This README provides essential information to get started with the application.
+
+Live Site: [Tracksify](https://serene-hamster-177974.netlify.app)
+
+API Documentation: [Tracksify](https://tracksify.azurewebsites.net/swagger/index.html)
+
+<p align="right"><a href="#readme-top">back to top</a></p>
+
+## Table of Contents
+
+- [Features](#features)
+- [Technological Stack](#technological-stack)
+- [Getting Started](#getting-started)
+- [Deployment](#deployment)
+- [Contributors](#contributors)
+- [License](#license)
+
+<p align="right"><a href="#readme-top">back to top</a></p>
+
+## Features
+
+  - **Project Dashboard:**
+  - Personalized dashboard for users and admins displaying project details.
+
+- **Project Management:**
+  - Create and assign projects.
+
+- **Real-Time Project Updates:**
+  - Users can log work hours and submit updates.
+    
+<p align="right"><a href="#readme-top">back to top</a></p>
+
+## Technological Stack
+
+- Frontend:
+  - Next.js
+  - Tailwind CSS
+  - TypeScript
+  - React Query
+  - Axios
+
+- Additional Tools and Libraries:
+  - toast from sonner
+  - shadcn/ui
+  - materialUI
+ 
+<p align="right"><a href="#readme-top">back to top</a></p>
+
+## Getting Started
+
+To run TRACKSIFY locally, follow these steps:
+
+#### Prerequisites
+
+Visual Studio: [Install Visual Studio](https://visualstudio.microsoft.com/)
+1. **Clone the Repository:**
+   
+   git clone https://github.com/preciousyaks17/Tracksify-Frontend.git
+   ```
+
+2. **Install Dependencies:**
+   
+   npm i 
+   ```
+
+3. **Run the Application:**
+   npm run dev
+   ```
+
+5. **Access the Application:**
+   - Open your browser and go to `http://localhost:3000` to access the TRACKSIFY application.
+
+<p align="right"><a href="#readme-top">back to top</a></p>
+
+---
+
+## Repository
+
+The frontend for Tracksify is hosted on Netlify. For frontend details and deployment, refer to the Tracksify Frontend Repository on GitHub.
+<p align="right"><a href="#readme-top">back to top</a></p>
+
+---
+
+## Contributors
+
+- Emmanuel Adebanjo - [Emmanuel](https://github.com/Deolamma)
+- Mathida Aghogho Duku - [Mathida](https://github.com/mathildaduku)
+- Precious Yakubu - [Precious](https://github.com/preciousyaks17)
+- Victor Effiong Akan - [Victor](https://github.com/veffiong73)
+- Simioluwa Benjamin - [Simioluwa](https://github.com/Tomi-Dev1)
+- Bukola Adedayo - [Bukola](https://github.com/Bukolaope)
+<p align="right"><a href="#readme-top">back to top</a></p>
+
+---
 
 
-**Getting Started:**
-This guide introduces a user-friendly web app designed to make project management seamless and efficient.
-Assigned tasks/projects from the Admin/employer, Allows User/employee receive a designated space to update project progress, ensuring transparency and accountability. 
-
-**Installation:**
-Install Dependencies: npm install 
-
-Configure Environment Variables:
-- Create a .env file in the root of your project.
-- Define any necessary environment variables (e.g., API endpoints, authentication keys).
-
-Run the Development Server: npm run dev
--Build and Start for Production: npm run build
-
-Tailwind CSS: Customize your styles by modifying the tailwind.config.js file.
-Shadci/UI: Follow the Shadci/UI documentation for any specific setup or customization.
-React Query: Configure queries and mutations based on your application's needs. Refer to the React Query documentation for guidance.
-
-Customize components, pages, and styles based on your requirements.
-
-Checkout TypeScript files.
-
-Integrate Axios for making HTTP requests.
-
-**Usage**
-
-Login:
-Use your registered credentials to log in to the app.
-
-Project Management:
-Admin/Employers can create and manage projects, assigning them to specific employees/users.
-
-Work Hour Tracking:
-Employees log their work hours against assigned projects.
-
-Dashboard:
-Monitor project progress, completed tasks, and overall work hours on the dashboard
-
-User/Employees Dashboard:
-Project Space: Each user/employee is assigned a designated space to update project progress. 
-Task Tracking: Users can input task updates, completion status, and any relevant notes directly into their project space.
-Admin/Employer Control:
-
-Admin/Employer Dashboard: Admins/employers have the authority to create, modify, and manage user accounts, ensuring that the right individuals have access to the right projects.
-Project Creation: Admins can create and set up new projects, defining project goals, milestones, and deadlines.
-Access Control: Admins can control access levels, granting permissions to users based on their roles within the organization.
 
 
