@@ -1,7 +1,7 @@
 **Introduction:** Welcome to TRACKSIFY, your ultimate companion in project management and productivity optimization. 
 
 
-**Getting Started**
+**Getting Started:**
 This guide introduces a user-friendly web app designed to make project management seamless and efficient.
 Assigned tasks/projects from the Admin/employer, Allows User/employee receive a designated space to update project progress, ensuring transparency and accountability. 
 
