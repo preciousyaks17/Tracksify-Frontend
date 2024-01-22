@@ -2,8 +2,11 @@
 "use client";
 import Modal from "@/components/modal";
 import axios from "axios";
+import formatDate from "@/utils/formatDate";
 import { Fragment, useEffect, useState } from "react";
 import { Icon2 } from "@/components/icon2";
+import axiosConfig from "@/config/axios";
+import Link from "next/link";
 
 const Page = () => {
   const [showModal, setShowModal] = useState(false);
@@ -12,8 +15,17 @@ const Page = () => {
   const [workDone, setWorkDone] = useState("");
   const [projectId, setProjectId] = useState("");
   const [projects, setProjects] = useState<any>([]);
+  let [user, setUser] = useState<any>();
 
-  function formatDate(dateString) {
+  useEffect(() => {
+    let user = JSON.parse(localStorage.getItem("user")!);
+    setUser(user);
+  }, []);
+
+  interface IFormDate {
+    dateString: string
+  }
+  function formatDate({dateString}: IFormDate) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
   
     try {
@@ -22,7 +34,7 @@ const Page = () => {
   
       // Check if the parsed date is valid
       if (!isNaN(parsedDate.getTime())) {
-        const formattedDate = parsedDate.toLocaleDateString('en-US', options);
+        const formattedDate = parsedDate.toLocaleDateString('en-US');
         return formattedDate;
       }
     } catch (error) {
@@ -36,9 +48,7 @@ const Page = () => {
   // Function to fetch projects from the backend
   const fetchProjects = async () => {
     try {
-      const response = await axios.get(
-        "https://tracksify.azurewebsites.net/tracksify/project"
-      );
+      const response = await axiosConfig.get("/project/loggedIn-user-project");
       setProjects(response.data);
     } catch (error) {
       console.error("Error fetching projects:", error);
@@ -52,8 +62,7 @@ const Page = () => {
 
   const postUpdate = async () => {
     try {
-      const response = await axios.post(
-        `https://tracksify.azurewebsites.net/tracksify/projectUpdate/employee/${projectId}`,
+      const response = await axiosConfig.post(`projectUpdate/employee/${projectId}`,
         {
           checkIn: workStartTime,
           checkOut: workEndTime,
@@ -65,7 +74,9 @@ const Page = () => {
 
       // Handle the response from the server (you can log it or show a success message)
       console.log("Check in success:", response.data);
+      setShowModal(false);
     } catch (error) {
+      console.log(projectId);
       // Handle errors (e.g., show an error message)
       console.error("Error checking in work done:", error);
     }
@@ -76,9 +87,8 @@ const Page = () => {
       <main className="">
         <div className="bg-color_hover h-screen ">
           <div className="p-10 pl-20">
-            
-            <h1 className="text-text_tertiary font-bold text-lg pt-10 pl-6 mt-4 mb-5">
-              Recent Projects
+            <h1 className="text-2xl text-text_tertiary pt-8 pl-40 font-bold">
+              Good Morning, {user?.firstName || ""}
             </h1>
             <table className="shadow-2xl w-full">
               <thead className="text-white bg-gray-400 mt-4">
@@ -95,7 +105,13 @@ const Page = () => {
               {projects.map((project: any, index: number) => (
                 <tbody className="text-black-300 text-center" key={index}>
                   <tr className="bg-#ffffff cursor-pointer duration-300">
-                    <td className="py-3 px-6"> {project.projectName} </td>
+      
+                        <td className="py-3 px-6"> 
+                        <Link href={`/employee-projects/${project.projectId}`}>
+                        {project.projectName}
+                        </Link>
+                         </td>
+        
                     <td className="py-3 px-6">{formatDate(project.startDate)}</td>
                     <td className="py-3 px-6">{formatDate(project.dueDate)}</td>
 

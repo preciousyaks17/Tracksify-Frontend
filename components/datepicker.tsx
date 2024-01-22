@@ -15,7 +15,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 }) => {
   return (
     <Datetime
-      onChange={(e) => setDate(new Date(e.toLocaleString()))}
+      onChange={(e) => {
+        setDate(new Date(e.toString()));
+      }}
       timeFormat={false}
       renderInput={(props, openCalendar, closeCalendar) => (
         <div>
