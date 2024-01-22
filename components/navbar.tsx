@@ -1,7 +1,8 @@
-"use client"
+"use client";
 import Link from "next/link";
 import Logo from "./logo";
 import React, { useEffect, useState } from "react";
+
 import { set } from "zod";
 
 const NavLinks = {
@@ -29,16 +30,16 @@ const NavLinks = {
       link: "/employee-projects",
     },
   ],
-}
+};
 
 const Navbar = () => {
-  let [navLinks, setNavlinks] = useState<{ name: string; link: string }[]> ([]);
-  
+  let [navLinks, setNavlinks] = useState<{ name: string; link: string }[]>([]);
+
   useEffect(() => {
     let user = JSON.parse(localStorage.getItem("user")!);
-    setNavlinks(user.userType === 0 ? NavLinks.employer : NavLinks.employee)
-  ;
+    setNavlinks(user.userType === 0 ? NavLinks.employer : NavLinks.employee);
   }, []);
+
   return (
     <div className="flex items-center justify-between p-4 bg-white">
       <div className="p-4  ">
@@ -49,7 +50,7 @@ const Navbar = () => {
           <Link
             href={link.link}
             key={link.name}
-            className=" hover:bg-navbar_color    rounded-full px-3 py-3 m-2 hover:text-text_secondary  font-semi-bold  text-text_tertiary hover:text_secondary"
+            className=" hover:bg-navbar_color border border-blue-200   rounded-full px-3 py-3 m-2 hover:text-text_secondary  font-semi-bold  text-text_tertiary "
           >
             {link.name}
           </Link>
@@ -61,7 +62,7 @@ const Navbar = () => {
             FO
           </button>
           <select className="ml-2 w-4 outline-none ">
-            <option value="option1" className=" ">
+            <option value="option1" className=" p-2">
               Log out{" "}
             </option>
           </select>
