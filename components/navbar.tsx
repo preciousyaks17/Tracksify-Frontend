@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import Logo from "./logo";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 import { set } from "zod";
@@ -39,7 +40,7 @@ const Navbar = () => {
     let user = JSON.parse(localStorage.getItem("user")!);
     setNavlinks(user.userType === 0 ? NavLinks.employer : NavLinks.employee);
   }, []);
-
+  const router = useRouter();
   return (
     <div className="flex items-center justify-between p-4 bg-white">
       <div className="p-4  ">
@@ -56,16 +57,19 @@ const Navbar = () => {
           </Link>
         ))}
       </div>
+
       <div>
-        <div className="border-2  border-gray-200 ">
-          <button className="bg-text_secondary p-2 m-2   text-white rounded-full">
-            FO
+        <div className="border-2 border-gray-200">
+          <button className="bg-text_secondary p-2 m-2 text-white rounded-full">
+            PY
           </button>
-          <select className="ml-2 w-4 outline-none ">
-            <option value="option1" className=" p-2">
-              Log out{" "}
-            </option>
-          </select>
+          <Link href={"/login"}>
+            <select className="ml-2 w-4 outline-none py-1 px-2 rounded">
+              <option value="option1" className="p-2">
+                Log out{" "}
+              </option>
+            </select>
+          </Link>
         </div>
       </div>
     </div>
