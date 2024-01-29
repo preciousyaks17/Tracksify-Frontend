@@ -2,7 +2,7 @@
 "use client";
 import Modal from "@/components/modal";
 import axios from "axios";
-import formatDate from "@/utils/formatDate";
+import formatDate, { formatDatte } from "@/utils/formatDate";
 import { Fragment, useEffect, useState } from "react";
 import { Icon2 } from "@/components/icon2";
 import axiosConfig from "@/config/axios";
@@ -23,27 +23,26 @@ const Page = () => {
   }, []);
 
   interface IFormDate {
-    dateString: string
+    dateString: string;
   }
-  function formatDate({dateString}: IFormDate) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  
+  function formatDate({ dateString }: IFormDate) {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+
     try {
       // Attempt to parse the date string
       const parsedDate = new Date(dateString);
-  
+
       // Check if the parsed date is valid
       if (!isNaN(parsedDate.getTime())) {
-        const formattedDate = parsedDate.toLocaleDateString('en-US');
+        const formattedDate = parsedDate.toLocaleDateString("en-US");
         return formattedDate;
       }
     } catch (error) {
       console.error("Error parsing date:", error);
     }
-  
+
     return "Invalid Date";
   }
-  
 
   // Function to fetch projects from the backend
   const fetchProjects = async () => {
@@ -62,7 +61,8 @@ const Page = () => {
 
   const postUpdate = async () => {
     try {
-      const response = await axiosConfig.post(`projectUpdate/employee/${projectId}`,
+      const response = await axiosConfig.post(
+        `projectUpdate/employee/${projectId}`,
         {
           checkIn: workStartTime,
           checkOut: workEndTime,
@@ -105,15 +105,18 @@ const Page = () => {
               {projects.map((project: any, index: number) => (
                 <tbody className="text-black-300 text-center" key={index}>
                   <tr className="bg-#ffffff cursor-pointer duration-300">
-      
-                        <td className="py-3 px-6"> 
-                        <Link href={`/employee-projects/${project.projectId}`}>
+                    <td className="py-3 px-6">
+                      <Link href={`/employee-projects/${project.projectId}`}>
                         {project.projectName}
-                        </Link>
-                         </td>
-        
-                    <td className="py-3 px-6">{formatDate(project.startDate)}</td>
-                    <td className="py-3 px-6">{formatDate(project.dueDate)}</td>
+                      </Link>
+                    </td>
+
+                    <td className="py-3 px-6">
+                      {formatDatte(project.startDate)}
+                    </td>
+                    <td className="py-3 px-6">
+                      {formatDatte(project.dueDate)}
+                    </td>
 
                     <select
                       className=""
@@ -218,139 +221,6 @@ const Page = () => {
                 </tbody>
               ))}
             </table>
-
-            {/* <div className="bg-white h-half w-4/5 mx-auto  ">
-              <h1 className="text-text_tertiary font-bold text-lg pt-10 pl-6 mt-4">
-                Recent Projects
-              </h1>
-              <div className="grid grid-cols-5 gap-0 p-5">
-                <h3 className="text-text_tertiary font-bold text-sm p-5">
-                  Project Name
-                </h3>
-                <h3 className="text-text_tertiary font-bold text-sm p-5">
-                  Start Date
-                </h3>
-                <h3 className="text-text_tertiary font-bold text-sm p-5">
-                  Due Date
-                </h3>
-                <h3 className="text-text_tertiary font-bold text-sm p-5">
-                  Status
-                </h3>
-                <h3 className="text-text_tertiary font-bold text-sm"></h3>
-              </div>
-              <div>
-                {projects.map((project:any, index:number) => (
-                  <div className="flex flex-row" key={index}>
-                    <p className="hover:bg-color_hover p-5">
-                      {project.projectName}{" "}
-                    </p>
-                    <p className="hover:bg-color_hover p-5">Dec 1, 2023</p>
-                    <p className="hover:bg-color_hover p-5">Dec 31, 2023</p>
-
-                    <select
-                      className=""
-                      onChange={(e) => console.log(e.target.value)}
-                    >
-                      <option value="In Progress" className="text-yellow-500">
-                        In Progress
-                      </option>
-                      <option value="2" className="text-green-500 border-none">
-                        Submitted
-                      </option>
-                    </select>
-
-                    <div className="flex justify-end pb-4">
-                      <div className="pt-5">
-                        <Icon2 />
-                      </div>
-                      <Fragment>
-                        <button
-                          className="bg-text_secondary text-white hover:text-text_tertiary hover:bg-color_hover rounded px-4 py-2 mt-4"
-                          onClick={() => {
-                            setProjectId(project.projectId);
-                            setShowModal(true);
-                          }}
-                        >
-                          Check In
-                        </button>
-                        <Modal
-                          isVisible={showModal}
-                          onClose={() => setShowModal(false)}
-                        >
-                          <div className="flex flex-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                            <h3 className="text-text_tertiary font-bold text-gray-900 dark:text-white">
-                              Check In
-                            </h3>
-                          </div>
-                          <h1 className="font-normal pt-4">
-                            Kindly enter your work information
-                          </h1>
-                          <div className="mb-6 mt-6">
-                            <label
-                              htmlFor="Start-Time inputfield"
-                              className="block text-sm font-medium text-gray-700"
-                            >
-                              Work Start Time
-                            </label>
-                            <input
-                              type="text"
-                              className="border p-2 rounded-md focus:outline-none focus:border-blue-500 w-full"
-                              placeholder="-- : --"
-                              onChange={(e) => setWorkStartTime(e.target.value)}
-                            />
-                          </div>
-
-                          <div className="mb-6 mt-6">
-                            <label
-                              htmlFor="Start-Time inputfield"
-                              className="block text-sm font-medium text-gray-700"
-                            >
-                              Work End Time
-                            </label>
-                            <input
-                              type="text"
-                              className="border p-2 rounded-md focus:outline-none focus:border-blue-500 w-full"
-                              placeholder="-- : --"
-                              onChange={(e) => setWorkEndTime(e.target.value)}
-                            />
-                          </div>
-
-                          <div className="mb-6 mt-0">
-                            <label
-                              htmlFor="message"
-                              className="block text-sm font-medium text-gray-700"
-                            >
-                              Work Done
-                            </label>
-                            <textarea
-                              id="message"
-                              className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 block w-full"
-                              placeholder="Enter work done for today."
-                              onChange={(e) => setWorkDone(e.target.value)}
-                            />
-                          </div>
-                          <div className="flex justify-center items-center mt-5">
-                            <button
-                              onClick={() => postUpdate()}
-                              className="bg-text_secondary text-white hover:text-text_tertiary hover:bg-color_hover rounded px-4 py-2 mt-4 w-full"
-                            >
-                              Submit
-                            </button>
-                          </div>
-                          <div className="flex justify-center items-center mt-5">
-                            <button className="border rounded hover:text-text_tertiary  text-text_secondary bg-gray-200 px-4 py-2 mt-4 w-full">
-                              Cancel
-                            </button>
-                          </div>
-
-                          
-                        </Modal>
-                      </Fragment>
-                    </div>
-                  </div>
-                ))}
-              </div> 
-            </div>*/}
           </div>
         </div>
       </main>

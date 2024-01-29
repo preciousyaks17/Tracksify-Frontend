@@ -24,11 +24,11 @@ interface User {
 }
 
 class AuthService {
-    static async login(
-        requestBody: LoginRequest
-    ): Promise<AxiosResponse<LoginResponse>> {
-        return await axiosConfig.post("/Auth/Login", requestBody);
-    }
+  static async login(
+    requestBody: LoginRequest
+  ): Promise<AxiosResponse<LoginResponse>> {
+    return await axiosConfig.post("Auth/Login", requestBody);
+  }
 }
 
 export default AuthService;

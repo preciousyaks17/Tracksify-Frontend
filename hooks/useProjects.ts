@@ -20,6 +20,21 @@ const useProject = () => {
     },
   });
 
+  const getProjectByProjectIdQuery = (projectId: string) =>
+    useQuery({
+      queryKey: ["project", projectId],
+      queryFn: async () => {
+        try {
+          const response = await ProjectService.getProjectByProjectId(
+            projectId
+          );
+          return response?.data;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    });
+
   const getProjectUpdate = useQuery({
     queryKey: ["getProjectUpdate"],
     queryFn: async () => {
@@ -33,7 +48,7 @@ const useProject = () => {
     },
   });
 
-  return { getProjectQuery, getProjectUpdate };
+  return { getProjectQuery, getProjectUpdate, getProjectByProjectIdQuery };
 };
 
 export default useProject;
