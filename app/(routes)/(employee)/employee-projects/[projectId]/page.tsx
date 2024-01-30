@@ -1,26 +1,8 @@
-'use client';
+"use client";
 import axiosConfig from "@/config/axios";
-import { useRouter } from "next/router";
+import useProject from "@/hooks/useProjects";
+import { formatDatte, formatTime } from "@/utils/formatDate";
 import React, { useEffect, useState } from "react";
-
-const ProjectUpdateData = [
-  {
-    assignee: "hhhhhhh",
-    date: "3333333",
-    workStartTime: "3333333",
-    workEndTime: "4444444",
-    workDoneMessage: "loooeeiejhdfjfjfjgjfj",
-    role: "employer",
-  },
-  {
-    assignee: "hhhhhhh",
-    date: "3333333",
-    workStartTime: "3333333",
-    workEndTime: "4444444",
-    workDoneMessage: "loooeeiejhdfjfjfjgjfj",
-    role: "employer",
-  },
-];
 
 interface ProjectDataProps {
   id?: string;
@@ -32,45 +14,48 @@ interface ProjectDataProps {
 }
 
 type projectIdProps = {
-  params: {projectId: string}
-}
+  params: { projectId: string };
+};
 
-const ProjectUpdate = ({params}: projectIdProps) => {
-  const projectId = params?.projectId
-   const [allProjectUpdates, setAllProjectUpdates] = useState([]);
+const ProjectUpdate = ({ params }: projectIdProps) => {
+  const projectId = params?.projectId;
+  const { getProjectByProjectIdQuery } = useProject();
+  const projectResponse = getProjectByProjectIdQuery(projectId)?.data;
+
+  const [allProjectUpdates, setAllProjectUpdates] = useState([]);
 
   // async function fetchProjectUpdated(projId: string) {
   //   console.log(projectId)
 
-
   //  }
-   
-useEffect(() => {
-  // Make axios call here with the endpooint
 
-  axiosConfig.get(`projectUpdate/employee-projectUpdate/project/${projectId}`)
-  .then(res => {
-    if(res.data?.length > 0){
-      setAllProjectUpdates(res.data);
-      console.log(res.data)
-    }
-  }).catch(err => {
-    console.log(err);
-  })
+  useEffect(() => {
+    // Make axios call here with the endpooint
 
-}, [])    
+    axiosConfig
+      .get(`projectUpdate/employee-projectUpdate/project/${projectId}`)
+      .then((res) => {
+        if (res.data?.length > 0) {
+          setAllProjectUpdates(res.data);
+          console.log(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <div className="px-8 py-2 space-y-6">
-      <h1 className=" font-bold">Project 1</h1>
+      <h1 className=" font-bold capitalize">{projectResponse?.projectName}</h1>
       <div className="grid grid-cols-2 gap-10">
         {allProjectUpdates.map((project: ProjectDataProps) => (
           <div key={project.id}>
             <ProjectMessage
-              dateCreated={project.dateCreated}
+              dateCreated={formatDatte(project.dateCreated)}
               workDone={project.workDone}
-              checkOut={project.checkOut}
-              checkIn={project.checkIn}
+              checkOut={formatTime(project.checkOut)}
+              checkIn={formatTime(project.checkIn)}
             />
           </div>
         ))}

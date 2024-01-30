@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Navbar from "@/components/navbar";
 import axios from "axios";
 import axiosConfig from "@/config/axios";
@@ -9,6 +9,7 @@ import getStatus from "@/utils/getStatus";
 import formatDate from "@/utils/formatDate";
 
 const Projects = () => {
+  const router = useRouter();
   const [allProjects, setAllProjects] = useState<any[]>([]);
 
   useEffect(() => {
@@ -43,39 +44,24 @@ const Projects = () => {
       {allProjects.map((project: any, index: number) => (
         <div
           key={index}
-          className="grid  hover:bg-gray-200  grid-cols-4 gap-2 p-2"
+          className="grid  hover:bg-gray-200  grid-cols-4 gap-2 p-2 cursor-pointer"
+          onClick={() => router.push(`/employee-projects/${project.projectId}`)}
         >
           <div className="col-span-1 ">
-            <Link
-              href={`/employer-dashboard/employer-project/1/project-update`}
-            >
-              <p className=" text-center  cursor-pointer">
-                {project.projectName}
-              </p>
-            </Link>
+            <p className=" text-center  cursor-pointer">
+              {project.projectName}
+            </p>
           </div>
           <div className="col-span-1">
-            <Link
-              href={`/employer-dashboard/employer-project/1/project-update`}
-            >
-              <p className="text-center p-2">
-                {formatDate(new Date(project.startDate))}
-              </p>
-            </Link>
+            <p className="text-center p-2">
+              {formatDate(new Date(project.startDate))}
+            </p>
           </div>
           <div className=" text-center col-span-1">
-            <Link
-              href={`/employer-dashboard/employer-project/1/project-update`}
-            >
-              <p className=" p-2 ">{formatDate(new Date(project.dueDate))}</p>
-            </Link>
+            <p className=" p-2 ">{formatDate(new Date(project.dueDate))}</p>
           </div>
           <div className="col-span-1 text-center">
-            <Link
-              href={`/employer-dashboard/employer-project/1/project-update`}
-            >
-              <p className="p-2 ">{getStatus(project.projectStatus)}</p>
-            </Link>
+            <p className="p-2 ">{getStatus(project.projectStatus)}</p>
           </div>
         </div>
       ))}
