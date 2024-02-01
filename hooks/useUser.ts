@@ -4,6 +4,7 @@ import UserService, { CreateUserRequest } from "@/services/userService";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { toast } from "sonner";
+import { string } from "zod";
 
 const useUser = () => {
   const getUserQuery = useQuery({
@@ -19,6 +20,21 @@ const useUser = () => {
       }
     },
   });
+
+  const getUserByUserId = (userId: string) =>
+    useQuery({
+      queryKey: ["getUserByUserId", userId],
+      queryFn: async () => {
+        try {
+          const response = await UserService.getUserByUserId(userId);
+          console.log(response);
+          return response?.data;
+        } catch (error) {
+          console.log(error);
+          toast.error("Something went wrong!");
+        }
+      },
+    });
 
   const createUserMutation = useMutation({
     mutationFn: async (data: CreateUserRequest) => {
@@ -38,7 +54,7 @@ const useUser = () => {
     },
   });
 
-  return { getUserQuery, createUserMutation };
+  return { getUserQuery, createUserMutation, getUserByUserId };
 };
 
 export default useUser;

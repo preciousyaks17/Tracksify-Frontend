@@ -86,7 +86,7 @@ class ProjectService {
 
   static async getProjectByProjectId(
     projectId: string
-  ): Promise<AxiosResponse<GetProjectByProjectIdResponse[]>> {
+  ): Promise<AxiosResponse<GetProjectByProjectIdResponse>> {
     return await axiosConfig.get(`project/${projectId}`);
   }
 
@@ -94,6 +94,7 @@ class ProjectService {
     userId: string
   ): Promise<AxiosResponse<GetProjectByUserIdResponse[]>> {
     return await axiosConfig.get(`project/user-project/${userId}`);
+    // return await axiosConfig.get(`project/user-project/3e5d5ae5-9a17-4762-9f08-12c96cea344d`);
   }
 
   static async updateProjectByProjectId(

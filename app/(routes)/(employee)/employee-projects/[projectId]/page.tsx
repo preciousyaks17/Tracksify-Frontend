@@ -20,7 +20,7 @@ type projectIdProps = {
 const ProjectUpdate = ({ params }: projectIdProps) => {
   const projectId = params?.projectId;
   const { getProjectByProjectIdQuery } = useProject();
-  const projectResponse = getProjectByProjectIdQuery(projectId)?.data;
+  const projectResponse = getProjectByProjectIdQuery(projectId).data;
 
   const [allProjectUpdates, setAllProjectUpdates] = useState([]);
 
@@ -43,14 +43,14 @@ const ProjectUpdate = ({ params }: projectIdProps) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [projectId]);
 
   return (
     <div className="px-8 py-2 space-y-6">
       <h1 className=" font-bold capitalize">{projectResponse?.projectName}</h1>
       <div className="grid grid-cols-2 gap-10">
         {allProjectUpdates.map((project: ProjectDataProps) => (
-          <div key={project.id}>
+          <div key={project?.id}>
             <ProjectMessage
               dateCreated={formatDatte(project.dateCreated)}
               workDone={project.workDone}

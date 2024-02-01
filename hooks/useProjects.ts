@@ -11,7 +11,7 @@ const useProject = () => {
     queryFn: async () => {
       try {
         const response = await ProjectService.getProject();
-        console.log(response);
+        // console.log(response);
         return response?.data;
       } catch (error: any) {
         console.log(error);
@@ -40,7 +40,7 @@ const useProject = () => {
     queryFn: async () => {
       try {
         const response = ProjectService.getProject();
-        console.log(response);
+        // console.log(response);
         return response;
       } catch (error: any) {
         console.log(error);

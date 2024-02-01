@@ -59,7 +59,7 @@ const Employee = () => {
   const { getUserQuery, createUserMutation } = useUser();
   // Extracting user data from the query resul
   const users = getUserQuery?.data;
-
+   
   console.log(users);
 
   // Form submission handler
@@ -286,8 +286,8 @@ const Employee = () => {
                 <div key={user.userId} className="grid grid-cols-3 gap-4 p-2">
                   <div className="flex-1">
                     <Link
-                      href={`/employer-dashboard/employer-project/1/list-of-projects`}
-                      // href={`/employer-dashboard/employer-project/${user.userId}/list-of-projects`}
+                      // href={"/hello"}
+                      href={`/employer-dashboard/employer-project/${user.userId}/list-of-projects`}
                     >
                       <p className="p-5">{`${user.firstName} ${user.lastName}`}</p>
                     </Link>
