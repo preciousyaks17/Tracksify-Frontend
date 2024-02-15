@@ -59,7 +59,7 @@ const Employee = () => {
   const { getUserQuery, createUserMutation } = useUser();
   // Extracting user data from the query resul
   const users = getUserQuery?.data;
-
+   
   console.log(users);
 
   // Form submission handler
@@ -260,28 +260,35 @@ const Employee = () => {
 
               {/* Table header */}
               <div className="grid grid-cols-3 gap-4 p-2 sticky top-0">
-                <div className="flex-1">
-                  <h3 className=" text-text_tertiary font-bold text-sm p-5">
-                    Name
-                  </h3>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-text_tertiary font-bold text-sm  p-5">
-                    Email Address
-                  </h3>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-text_tertiary font-bold text-sm  p-5">
-                    Role
-                  </h3>
-                </div>
+                {showModal ? null : (
+                  <>
+                    <div className="flex-1">
+                      <h3 className=" text-text_tertiary font-bold text-sm p-5">
+                        Name
+                      </h3>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-text_tertiary font-bold text-sm  p-5">
+                        Email Address
+                      </h3>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-text_tertiary font-bold text-sm  p-5">
+                        Role
+                      </h3>
+                    </div>
+                  </>
+                )}
               </div>
 
               {/* Displaying user data in a table */}
               {users?.map((user) => (
                 <div key={user.userId} className="grid grid-cols-3 gap-4 p-2">
                   <div className="flex-1">
-                    <Link href={`/employee/${user.userId}/project-updates`}>
+                    <Link
+                      // href={"/hello"}
+                      href={`/employer-dashboard/employer-project/${user.userId}/list-of-projects`}
+                    >
                       <p className="p-5">{`${user.firstName} ${user.lastName}`}</p>
                     </Link>
                   </div>

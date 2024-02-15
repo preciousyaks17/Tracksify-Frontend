@@ -39,6 +39,16 @@ interface GetProjectByProjectIdResponse {
   projectAssignees: any[];
 }
 
+interface GetProjectByUserIdResponse {
+  projectId: string;
+  projectName: string;
+  startDate: string;
+  dueDate: string;
+  projectDescription: string;
+  projectStatus: number;
+  projectAssignees: string[];
+}
+
 interface UpdateProjectByProjectIdRequest {
   projectName: string;
   startDate: string;
@@ -64,7 +74,7 @@ interface DeleteProjectResponse {
 }
 
 class ProjectService {
-  static async getProject(): Promise<AxiosResponse<GetProjectResponse>> {
+  static async getProject(): Promise<AxiosResponse<GetProjectResponse[]>> {
     return await axiosConfig.get("project");
   }
 
@@ -78,6 +88,13 @@ class ProjectService {
     projectId: string
   ): Promise<AxiosResponse<GetProjectByProjectIdResponse>> {
     return await axiosConfig.get(`project/${projectId}`);
+  }
+
+  static async getProjectByUserId(
+    userId: string
+  ): Promise<AxiosResponse<GetProjectByUserIdResponse[]>> {
+    return await axiosConfig.get(`project/user-project/${userId}`);
+    // return await axiosConfig.get(`project/user-project/3e5d5ae5-9a17-4762-9f08-12c96cea344d`);
   }
 
   static async updateProjectByProjectId(

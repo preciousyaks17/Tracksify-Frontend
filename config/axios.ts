@@ -7,13 +7,11 @@ const axiosConfig = axios.create({
 
 axiosConfig.interceptors.request.use(
   function (config) {
-
     const jwt = localStorage.getItem("token");
 
-    console.log("jwt", jwt);
+    // console.log("jwt", jwt);
     if (jwt) {
-
-      config.headers.Authorization = 'Bearer ' +jwt
+      config.headers.Authorization = "Bearer " + jwt;
     }
     return config;
   },
@@ -27,7 +25,7 @@ axiosConfig.interceptors.response.use(
     return response;
   },
   function (err) {
-    if(err.response.status === 401) {
+    if (err.response.status === 401) {
       // localStorage.removeItem("token");
       // window.location.href = "/login";
     }
