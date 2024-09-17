@@ -3,6 +3,7 @@ import axiosConfig from "@/config/axios";
 import useProject from "@/hooks/useProjects";
 // import { formatDate, formatTime } from "@/utils/formatDate"; // Corrected import
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router"; // Import useRouter
 
 interface ProjectDataProps {
   id?: string;
@@ -18,6 +19,7 @@ type projectIdProps = {
 };
 
 const ProjectUpdate = ({ params }: projectIdProps) => {
+  const router = useRouter(); // Use useRouter hook
   const projectId = params?.projectId;
   const { getProjectByProjectIdQuery } = useProject();
   const projectResponse = getProjectByProjectIdQuery(projectId)?.data;
@@ -25,7 +27,8 @@ const ProjectUpdate = ({ params }: projectIdProps) => {
   const [allProjectUpdates, setAllProjectUpdates] = useState([]);
 
   useEffect(() => {
-    // Make axios call here with the endpoint
+    if (!router.isReady) return; // Ensure router is ready
+
     axiosConfig
       .get(`projectUpdate/employee-projectUpdate/project/${projectId}`)
       .then((res) => {
@@ -37,7 +40,7 @@ const ProjectUpdate = ({ params }: projectIdProps) => {
       .catch((err) => {
         console.log(err);
       });
-  }, [projectId]); // Added projectId to the dependency array
+  }, [projectId, router.isReady]); // Added router.isReady to the dependency array
 
   return (
     <div className="px-8 py-2 space-y-6">
