@@ -1,4 +1,5 @@
 "use client";
+// Importing necessary components and utilities
 import { Icon } from "@/components/icon";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/modal";
@@ -10,8 +11,38 @@ import useEmployees from "@/hooks/useEmployees";
 import Loader from "@/components/loader";
 
 const Employee = () => {
+  // Initializing form state using react-hook-form and zodResolver
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      firstName: "",
+    },
+  });
+
+  // State for controlling the visibility of the modal
   const [showModal, setShowModal] = React.useState(false);
+  // Next.js router instance
   const router = useRouter();
+  // Custom hook for handling user-related functionality
+  const { getUserQuery, createUserMutation } = useUser();
+  // Extracting user data from the query resul
+  const users = getUserQuery?.data;
+
+  console.log(users);
+
+  // Form submission handler
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    /// Perform actions with the form values
+    createUserMutation.mutate(values);
+    setShowModal(false);
+  }
+
+  // Close modal handler
+  const handleCloseModal = () => {
+    form.reset(); // Reset form values
+    setShowModal(false);
+  };
+  // JSX structure for the Employee component
   const { getEmployeesQuery, createUser } = useEmployees();
 
   return (
@@ -36,6 +67,7 @@ const Employee = () => {
               Add Employee
             </button>
           </div>
+          {/* Modal for adding employees */}
           <div className="flex items-center justify-center">
             <div
               className={`${
@@ -157,10 +189,55 @@ const Employee = () => {
               </div>
             </Modal>
           </div>
+
+          {/* Employee list section */}
+          <div className=" h-screen flex justify-center mt-[-1]">
+            <div className="bg-white mt-10 w-full md:w-3/4 lg:w-1/2 overflow-y-auto ">
+              {/* Title */}
+              <h1 className=" font-bold pl-5 mt-5">Employees</h1>
+
+              {/* Table header */}
+              <div className="grid grid-cols-3 gap-4 p-2 sticky top-0">
+                <div className="flex-1">
+                  <h3 className=" text-text_tertiary font-bold text-sm p-5">
+                    Name
+                  </h3>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-text_tertiary font-bold text-sm  p-5">
+                    Email Address
+                  </h3>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-text_tertiary font-bold text-sm  p-5">
+                    Role
+                  </h3>
+                </div>
+              </div>
+
+              {/* Displaying user data in a table */}
+              {users?.map((user) => (
+                <div key={user.userId} className="grid grid-cols-3 gap-4 p-2">
+                  <div className="flex-1">
+                    <Link href={`/employee/${user.userId}/project-updates`}>
+                      <p className="p-5">{`${user.firstName} ${user.lastName}`}</p>
+                    </Link>
+                  </div>
+                  <div className="flex-1 overflow-auto">
+                    <p className="p-5">{user.email}</p>
+                  </div>
+                  <div className="flex-1">
+                    <p className="p-5">{user.role}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </Fragment>
   );
 };
 
+// Exporting the Employee component as the default export
 export default Employee;

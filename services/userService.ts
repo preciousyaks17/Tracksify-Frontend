@@ -1,7 +1,8 @@
 import axiosConfig from "@/config/axios";
 import { AxiosResponse } from "axios";
 
-interface GetUserResponse {
+
+export interface GetUserResponse {
   userId: string;
   firstName: string;
   lastName: string;
@@ -22,6 +23,7 @@ interface Project {
   projectAssignees: string[];
 }
 
+export interface CreateUserRequest {
 export interface CreateUserRequest {
   firstName: string;
   lastName: string;

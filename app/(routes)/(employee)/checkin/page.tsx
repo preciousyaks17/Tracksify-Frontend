@@ -3,10 +3,12 @@ import Link from "next/link";
 import Logo from "@/components/logo";
 import React, { ReactEventHandler, useState } from "react";
 import { toast } from "sonner";
+import axiosConfig from "@/config/axios";
 
 const page = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log("------------------------------");
     toast.success("Submitted");
   };
 
