@@ -1,6 +1,6 @@
 "use client";
 
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/shared/navbar";
 import QueryProvider from "@/utils/provider";
 import React from "react";
 

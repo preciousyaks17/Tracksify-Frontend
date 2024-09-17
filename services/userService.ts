@@ -22,7 +22,7 @@ interface Project {
   projectAssignees: string[];
 }
 
-interface CreateUserRequest {
+export interface CreateUserRequest {
   firstName: string;
   lastName: string;
   email: string;
@@ -71,39 +71,39 @@ interface UpdateUserResponse {
 }
 
 interface DeleteUserResponse {
-    status: string;
-    message: string;    
+  status: string;
+  message: string;
 }
 
 class UserService {
-    static async getUser(): Promise<AxiosResponse<GetUserResponse>> {
-        return await axiosConfig.get("user");
-    }
+  static async getUser(): Promise<AxiosResponse<GetUserResponse[]>> {
+    return await axiosConfig.get("user");
+  }
 
-    static async createUser(
-        requestBody: CreateUserRequest
-    ): Promise<AxiosResponse<CreateUserResponse>> {
-        return await axiosConfig.post("user", requestBody);
-    }
+  static async createUser(
+    requestBody: CreateUserRequest
+  ): Promise<AxiosResponse<CreateUserResponse>> {
+    return await axiosConfig.post("user", requestBody);
+  }
 
-    static async getUserByUserId( 
-      userId: string
-    ): Promise<AxiosResponse<GetUserByUserIdResponse>> {
-        return await axiosConfig.get(`user/${userId}`);
-    }
+  static async getUserByUserId(
+    userId: string
+  ): Promise<AxiosResponse<GetUserByUserIdResponse>> {
+    return await axiosConfig.get(`user/${userId}`);
+  }
 
-    static async updateUser(
-        userId: string,
-        requestBody: UpdateUserRequest
-    ): Promise<AxiosResponse<UpdateUserResponse>> {
-        return await axiosConfig.put(`user/${userId}`, requestBody);
-    }
+  static async updateUser(
+    userId: string,
+    requestBody: UpdateUserRequest
+  ): Promise<AxiosResponse<UpdateUserResponse>> {
+    return await axiosConfig.put(`user/${userId}`, requestBody);
+  }
 
-    static async deleteUser(
-        userId: string
-    ): Promise<AxiosResponse<DeleteUserResponse>> {
-        return await axiosConfig.delete(`user/delete-user/${userId}`);
-    }
+  static async deleteUser(
+    userId: string
+  ): Promise<AxiosResponse<DeleteUserResponse>> {
+    return await axiosConfig.delete(`user/delete-user/${userId}`);
+  }
 }
 
 export default UserService;

@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/router";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/shared/navbar";
 import axios from "axios";
 import axiosConfig from "@/config/axios";
 import Link from "next/link";
