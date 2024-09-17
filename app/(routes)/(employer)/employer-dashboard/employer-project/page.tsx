@@ -7,7 +7,6 @@ import { Fragment, useEffect, useState } from "react";
 import { DatePicker } from "@/components/datepicker";
 import MultiSelectDropdown from "@/components/drop-down-menu";
 import getStatus from "@/utils/getStatus";
-import { formatDate, formatTime } from "@/utils/formatDate";
 
 import router from "next/router";
 import axios from "axios";
@@ -172,7 +171,7 @@ const Page = () => {
                       label={"End Time"}
                       setDate={(val: Date) => {
                         setDueDate(val);
-                        formatDate(val);
+                        // formatDate(val);
                       }}
                       icon={
                         <svg
@@ -290,7 +289,7 @@ const Page = () => {
                         href={`/employer-dashboard/employer-project/1/project-update`}
                       >
                         <p className="text-center p-2">
-                          {formatDate(new Date(projectDetail.startDate))}
+                          {/* {formatDate(new Date(projectDetail.startDate))} */}
                         </p>
                       </Link>
                     </div>
@@ -299,7 +298,7 @@ const Page = () => {
                         href={`/employer-dashboard/employer-project/1/project-update`}
                       >
                         <p className=" p-2 ">
-                          {formatDate(new Date(projectDetail.dueDate))}
+                          {/* {formatDate(new Date(projectDetail.dueDate))} */}
                         </p>
                       </Link>
                     </div>

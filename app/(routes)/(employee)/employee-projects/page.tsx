@@ -6,8 +6,6 @@ import axiosConfig from "@/config/axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import getStatus from "@/utils/getStatus";
-import { formatDate, formatTime } from "@/utils/formatDate";
-// Rest of your code...
 const Projects = () => {
   const [allProjects, setAllProjects] = useState<any[]>([]);
 
@@ -59,7 +57,7 @@ const Projects = () => {
               href={`/employer-dashboard/employer-project/1/project-update`}
             >
               <p className="text-center p-2">
-                {formatDate(new Date(project.startDate))}
+                {/* {formatDate(new Date(project.startDate))} */}
               </p>
             </Link>
           </div>
@@ -67,7 +65,7 @@ const Projects = () => {
             <Link
               href={`/employer-dashboard/employer-project/1/project-update`}
             >
-              <p className=" p-2 ">{formatDate(new Date(project.dueDate))}</p>
+              {/* <p className=" p-2 ">{formatDate(new Date(project.dueDate))}</p> */}
             </Link>
           </div>
           <div className="col-span-1 text-center">
