@@ -4,11 +4,25 @@ import { Icon } from "@/components/icon";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/modal";
 import React, { useState, Fragment } from "react";
+import { z } from "zod";
+import Link from "next/link";
+
+// Define formSchema using zod
+const formSchema = z.object({
+  firstName: z.string().nonempty("First name is required"),
+  lastName: z.string().nonempty("Last name is required"),
+  email: z.string().email("Invalid email address"),
+  role: z.string().nonempty("Role is required"),
+  password: z.string().min(6, "Password must be at least 6 characters long"),
+});
 import { handleClientScriptLoad } from "next/script";
 import Dropdown from "@/components/drop-down-menu";
 import MultiSelectDropdown from "@/components/drop-down-menu";
 import useEmployees from "@/hooks/useEmployees";
 import Loader from "@/components/loader";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import useUser from "@/hooks/useUser";
 
 const Employee = () => {
   // Initializing form state using react-hook-form and zodResolver
@@ -216,21 +230,53 @@ const Employee = () => {
               </div>
 
               {/* Displaying user data in a table */}
-              {users?.map((user) => (
-                <div key={user.userId} className="grid grid-cols-3 gap-4 p-2">
-                  <div className="flex-1">
-                    <Link href={`/employee/${user.userId}/project-updates`}>
-                      <p className="p-5">{`${user.firstName} ${user.lastName}`}</p>
-                    </Link>
+              {/* {users?.map(
+                (user: {
+                  userId: React.Key | null | undefined;
+                  firstName: any;
+                  lastName: any;
+                  email:
+                    | string
+                    | number
+                    | boolean
+                    | React.ReactElement<
+                        any,
+                        string | React.JSXElementConstructor<any>
+                      >
+                    | Iterable<React.ReactNode>
+                    | React.ReactPortal
+                    | React.PromiseLikeOfReactNode
+                    | null
+                    | undefined;
+                  role:
+                    | string
+                    | number
+                    | boolean
+                    | React.ReactElement<
+                        any,
+                        string | React.JSXElementConstructor<any>
+                      >
+                    | Iterable<React.ReactNode>
+                    | React.ReactPortal
+                    | React.PromiseLikeOfReactNode
+                    | null
+                    | undefined;
+                }) => (
+                  <div key={user.userId} className="grid grid-cols-3 gap-4 p-2">
+                    <div className="flex-1">
+                      <Link href={`/employee/${user.userId}/project-updates`}>
+                        <p className="p-5">{`${user.firstName} ${user.lastName}`}</p>
+                      </Link>
+                    </div>
+                    <div className="flex-1 overflow-auto">
+                      <p className="p-5">{user.email}</p>
+                    </div>
+                    <div className="flex-1">
+                      <p className="p-5">{user.role}</p>
+                    </div>
                   </div>
-                  <div className="flex-1 overflow-auto">
-                    <p className="p-5">{user.email}</p>
-                  </div>
-                  <div className="flex-1">
-                    <p className="p-5">{user.role}</p>
-                  </div>
-                </div>
-              ))}
+                )
+              )} */}
             </div>
           </div>
         </div>
