@@ -6,8 +6,8 @@ import axiosConfig from "@/config/axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import getStatus from "@/utils/getStatus";
-import formatDate from "@/utils/formatDate";
-
+import { formatDate, formatTime } from "@/utils/formatDate";
+// Rest of your code...
 const Projects = () => {
   const [allProjects, setAllProjects] = useState<any[]>([]);
 
